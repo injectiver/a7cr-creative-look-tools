@@ -1,0 +1,11 @@
+{
+  "schema": "a7cr-upstream-lock/1",
+  "distribution": "References only. Checkouts and their original licenses stay local under ignored research/.",
+  "repositories": [
+    {"id": "a7c2", "url": "https://github.com/QAQLeonard/a7c2-fl23-research.git", "commit": "b51688deecb56cd34fdd1f2948915cd6ea4e6736", "destination": "research/repos/a7c2-fl23-research", "profile": "tools"},
+    {"id": "a7cr-notes", "url": "https://github.com/lzh2016zzz/a7cr-fl23-research.git", "commit": "43ba74441c8f10459ade41e84a379ad8005e6ef4", "destination": "research/repos/a7cr-fl23-research", "profile": "tools"},
+    {"id": "exiftool", "url": "https://github.com/exiftool/exiftool.git", "commit": "2200871d9cef988051d2a99d67df3bda6cbb30a8", "destination": "research/tools/exiftool", "profile": "tools"},
+    {"id": "fwtool", "url": "https://github.com/DavidBuchanan314/fwtool.py.git", "commit": "3955d7890fc38daf942bb52827599bfe35de4a14", "destination": "research/repos/fwtool-cxd90057", "profile": "research"},
+    {"id": "keystone", "url": "https://github.com/keystone-engine/keystone.git", "commit": "dc7932ef2b2c4a793836caec6ecab485005139d6", "destination": "research/tools/keystone", "profile": "research"}
+  ]
+}

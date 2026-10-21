@@ -1,0 +1,24 @@
+# User-provided proprietary inputs and all locally generated research data.
+/private/
+/research/
+/work/
+/backups/
+/fixtures/
+/.venv/
+/.venv-offline/
+/dist/
+__pycache__/
+*.py[cod]
+.DS_Store
+*.private.*
+*.ARW
+*.arw
+*.HIF
+*.hif
+*.dcp
+*.cube
+BODYDATA.DAT
+*.fdat
+*.so
+*.bin
+

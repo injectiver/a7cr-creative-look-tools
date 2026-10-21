@@ -1,0 +1,6 @@
+pycryptodomex==3.24.1
+PyYAML==6.0.3
+capstone==5.0.6
+pyelftools==0.32
+unicorn==2.1.4
+ziglang==0.13.0

@@ -1,0 +1,8 @@
+-r requirements.txt
+capstone==5.0.6
+pyelftools==0.32
+unicorn==2.1.4
+ziglang==0.13.0
+# Apple Silicon may require a native build of Keystone's shared library.
+keystone-engine==0.9.2
+cmake==3.31.10
