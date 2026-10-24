@@ -22,3 +22,13 @@ BODYDATA.DAT
 *.so
 *.bin
 
+
+# Personal captures and private input archives.
+*.JPG
+*.jpg
+*.JPEG
+*.jpeg
+*.DNG
+*.dng
+*.zip
+*.7z

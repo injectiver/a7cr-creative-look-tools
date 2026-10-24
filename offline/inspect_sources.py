@@ -9,7 +9,10 @@ import sys
 import tarfile
 import time
 
-ROOT = Path(__file__).resolve().parents[1]
+import sys as _path_sys
+_path_sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from tools.project_paths import runtime_root
+ROOT = runtime_root(Path(__file__).resolve().parents[1])
 sys.path.insert(0, str(ROOT / "research/repos/fwtool-cxd90057"))
 try:
     from fwtool.sony import dat, fdat  # noqa: E402

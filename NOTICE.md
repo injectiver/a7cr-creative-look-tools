@@ -38,16 +38,25 @@ The six-look experiment used six selections from the **18 original DCP files**
 in the [A7C II project's release downloads](https://github.com/QAQLeonard/a7c2-fl23-research/releases),
 described in its [profile guide](https://github.com/QAQLeonard/a7c2-fl23-research/blob/b51688deecb56cd34fdd1f2948915cd6ea4e6736/docs/en/profiles.md).
 
-- Fujifilm-style adaptations: 门萨特里顿 / MTriton; the supplied notices also
-  credit `abpy/FujifilmCameraProfiles` and **CC BY-NC-SA 4.0**. Preserve attribution,
-  indicate modifications, and apply the relevant noncommercial/share-alike terms.
-- Ricoh GR III adaptations: 爸总林先森. The supplied files retain embedded Adobe
-  copyright notices and the upstream manifest states that no separate
-  redistribution license was supplied. This repository does not redistribute
-  those profiles or presume that its software license covers them.
-- A converted 1,215-byte table is not automatically free of the source profile's
-  applicable rights. Generated data need their own provenance review before
-  publication.
+- Fujifilm-style source profiles are credited to **门萨特里顿 / MTriton**;
+  Ricoh profiles to **爸总林先森**. Preserve the original profile metadata and
+  corresponding upstream notices.
+- The upstream project's current [notices](https://github.com/QAQLeonard/a7c2-fl23-research/blob/main/docs/en/notices.md)
+  state that it obtained the authors' permission and licenses the supplied DCPs
+  and derived look data under MIT. Earlier pinned documents and embedded
+  metadata may show older terms; retain provenance for the actual release input.
+- This repository still distributes neither original DCPs nor generated LUTs.
+  Its source-code license is not an independent grant for arbitrary third-party
+  profiles, photographs or Sony firmware.
+
+## 0.2 workflow attribution
+
+The single-slot and incremental portrait host/runtime adaptation, scoped ST
+synchronization, actual-worker emulation, exit-timeout completion review and
+agent-neutral project interface are downstream contributions. Core Sony service,
+DCP fitting and native transaction methods retain the upstream attribution above.
+No existing source notice is removed. New public project paths and local manifest
+bindings replace the author's dated private workspace and per-body hashes.
 
 ## 简体中文说明
 
@@ -59,5 +68,5 @@ A7CR 研究仓库在此作为研究来源引用，并不把其全部文档重新
 完整或修改后的 Sony 固件、抽取的原厂色彩／校准表、机身备份、DCP/LUT、个人照片
 或相机标识。所需输入由使用者自行提供，生成物留在本地忽略目录。
 
-六款参考 DCP 来自 A7C II 项目的 18 款原始文件附件。富士风格与理光风格文件的
-来源和授权分别处理，不能用软件 MIT 许可覆盖。首版仅提供上游入口，不打包素材。
+六款参考 DCP 来自 A7C II 项目的 18 款原始文件附件。来源与原始署名必须保留。上游当前许可说明记录了作者授权的 MIT 发布；本仓库仍不打包
+DCP 或生成的 LUT，也不为任意其他素材另行授予权利。

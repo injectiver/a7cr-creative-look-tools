@@ -17,7 +17,8 @@ def main():
         "skipped":len(result.skipped), "failures":len(result.failures), "errors":len(result.errors),
         "successful":result.wasSuccessful(), "camera_opened":False,
         "note":"Private per-body integration fixtures are deliberately excluded. Skipped tests are not passes."}
-    path = ROOT/"private/validation/public-host-tests.private.json"
+    from tools.project_paths import runtime_root
+    path = runtime_root(ROOT)/"private/validation/public-host-tests.private.json"
     path.parent.mkdir(parents=True,exist_ok=True)
     path.write_text(json.dumps(summary,indent=2)+"\n")
     return 0 if result.wasSuccessful() else 1

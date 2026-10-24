@@ -26,6 +26,21 @@ def walk(item):
         yield from walk(item.get("IORegistryEntryChildren", []))
 
 
+def sony_usb_snapshot():
+    """Observe registry descriptors only; omit serials and never open USB."""
+    tree = plistlib.loads(command("/usr/sbin/ioreg", "-p", "IOUSB", "-l", "-a"))
+    return sorted(
+        ({"pid": f"{node['idProduct']:04x}",
+          "location_id": node.get("locationID"),
+          "product": node.get("USB Product Name")}
+         for node in walk(tree)
+         if node.get("IOObjectClass") == "IOUSBHostDevice"
+         and node.get("idVendor") == 0x054C
+         and isinstance(node.get("idProduct"), int)),
+        key=lambda item: (item["pid"], str(item["location_id"])),
+    )
+
+
 def validate_media(tree, identity, info_for):
     targets = [node for node in walk(tree)
                if node.get("IOObjectClass") == "IOUSBHostDevice"

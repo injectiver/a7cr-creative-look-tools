@@ -18,7 +18,7 @@ class CompletionHostJob(HostJob):
         camera.operations.append(('completion_program_check',0));return {'ok':True}
 
 
-@unittest.skipUnless((mod.ROOT / "private/lut-install/six-20261020-01/package.private.json").is_file(), "Private per-body fixture deliberately excluded from the public release")
+@unittest.skipUnless((mod.ROOT / "private/lut-install/six/package.private.json").is_file(), "Private per-body fixture deliberately excluded from the public release")
 class CompletionTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):cls.p=Package()

@@ -18,7 +18,7 @@ from looktool.backupstore import Store
 from looktool import resources,nameworker,devicesettings
 import resource_mirror
 
-JOB=ROOT/'private/lut-install/six-20261020-01'
+JOB=ROOT/'private/lut-install/six'
 NAME_TEMPS=frozenset(('a7cr.six.names.so','a7c2.names.request','a7c2.names.result'))
 
 
@@ -86,7 +86,7 @@ class Package:
         self.programs={'original':original,'candidate':candidate}
         self.states={'original':original,'cp_only':dict(AP=original['AP'],CP=candidate['CP']),'installed':candidate}
         self.audit={'programs':m['programs']}
-        self.fl23=Fl23Package(ROOT/'private/install/20261020-a7cr-fl23-01')
+        self.fl23=Fl23Package(ROOT/'private/install/fl23')
         if self.fl23.binding!=self.binding or self.fl23.programs['candidate']!=original:
             raise ValueError('Completed FL23/body source differs')
         self.protected=self.fl23.protected

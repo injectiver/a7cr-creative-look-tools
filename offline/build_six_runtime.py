@@ -7,7 +7,7 @@ from build_native_workers import ROOT,compile_worker
 from build_lut_candidate import OUT as CANDIDATE,ENTRY,TITLE,GETTER,MAP
 from inspect_sources import save_json
 
-OUT=ROOT/'private/lut-install/six-20261020-01/runtime'
+OUT=ROOT/'private/lut-install/six/runtime'
 
 
 def build():

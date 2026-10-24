@@ -1,13 +1,13 @@
 {
   "schema": "a7cr-public-host-tests/1",
-  "run": 127,
-  "skipped": 43,
+  "run": 283,
+  "skipped": 49,
   "failures": 0,
   "errors": 0,
   "successful": true,
   "camera_opened": false,
   "note": "Private per-body integration fixtures are deliberately excluded. Skipped tests are not passes.",
-  "passed": 84,
-  "recorded_date": "2026-10-21",
-  "scope": "Public host tests and publication-boundary tests; protocols mocked, private fixtures excluded."
+  "passed": 234,
+  "recorded_date": "2026-10-25",
+  "scope": "Public source host tests; protocols mocked; private fixtures separately skipped."
 }

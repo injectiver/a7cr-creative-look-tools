@@ -7,7 +7,7 @@ from inspect_sources import save_json
 
 
 def main():
-    folder=ROOT/'private/lut-install/six-20261020-01/completion'
+    folder=ROOT/'private/lut-install/six/completion'
     path=folder/'completion.private.json';plan=json.loads(path.read_text())
     manifest=json.loads((folder.parent/'package.private.json').read_text())
     text=source('program',True)

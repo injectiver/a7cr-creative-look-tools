@@ -14,7 +14,10 @@ import sys
 
 import numpy as np
 
-ROOT = Path(__file__).resolve().parents[1]
+import sys as _path_sys
+_path_sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from tools.project_paths import runtime_root
+ROOT = runtime_root(Path(__file__).resolve().parents[1])
 sys.path.insert(0, str(ROOT / "research/repos/a7c2-fl23-research/src/looks"))
 from looktool import native
 

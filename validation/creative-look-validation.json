@@ -1,0 +1,77 @@
+{
+  "schema": "a7cr-creative-look-validation/1",
+  "recorded_date": "2026-10-25",
+  "timezone": "Asia/Shanghai",
+  "camera": {
+    "model": "ILCE-7CR",
+    "firmware": "2.01",
+    "bodies": 1
+  },
+  "host": {
+    "system": "macOS",
+    "architecture": "arm64",
+    "python_used_for_public_checks": "3.12.9"
+  },
+  "physical_record": {
+    "source": "Reviewed local implementation before portable-path refactoring",
+    "native_FL2_FL3_previously_installed_and_photographed": true,
+    "single_slot_CC_cold_start_and_new_JPEG_checked": true,
+    "portrait_increment_written_and_full_disk_readback_verified": true,
+    "portrait_increment_new_boot_loaded_AP_spans": 16,
+    "portrait_increment_all_resources_verified": 68,
+    "portrait_increment_saved_and_runtime_bases_match_ST": true,
+    "new_JPEG_routes_checked": [
+      250,
+      251,
+      0
+    ],
+    "sample_scene": "Indoor still life",
+    "sample_exposure": "1/30 s, f/2.8, ISO 400, exposure compensation -0.3, auto white balance",
+    "owner_reported_normal_names_after_cold_start": true,
+    "complete_physical_restoration_tested": false,
+    "actual_portrait_skin_tones_tested": false,
+    "physical_Fujifilm_color_match_tested": false,
+    "running_CP_RAM_bytes_read": false,
+    "latest_extension_all_native_look_shooting_combinations_tested": false
+  },
+  "offline_evidence": {
+    "single_native_CPU_cases": 789,
+    "portrait_native_CPU_cases": 831,
+    "portrait_worker_variants": 46,
+    "portrait_native_worker_cases": 634,
+    "portrait_readonly_probe_cases": 6,
+    "loaded_reader_cases": 7,
+    "full_size_program_transaction_cases": 16,
+    "native_SHA_reduced_fixture_cases": 11,
+    "actual_68_resource_transaction_cases": 8,
+    "full_size_bulk_hashing_uses_host_oracles": true,
+    "Sony_menu_functions_stubbed": true,
+    "hardware_RTOS_power_loss_emulated": false
+  },
+  "portable_rebuild": {
+    "camera_opened": false,
+    "local_profile_fit_slots": [
+      1,
+      2,
+      3
+    ],
+    "single_slot_candidate_reproduced_original_AP_CP_hashes": true,
+    "placement_and_loading_rechecked": true,
+    "new_single_slot_probe_cases": 5,
+    "recovery_catalog_variants": 23,
+    "private_components_and_profiles_published": false,
+    "public_project_API_physically_retested_on_another_body": false
+  },
+  "USB_exit_timeout": {
+    "writes_and_readbacks_completed_before_timeout": true,
+    "failure_history_preserved": true,
+    "reinstallation_performed": false,
+    "cold_start_readonly_verification_later_passed": true
+  },
+  "privacy": {
+    "body_identifiers_or_binding_hashes_published": false,
+    "body_backups_or_calibration_published": false,
+    "photos_published": false,
+    "firmware_or_DCP_or_LUT_or_workers_published": false
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "a7cr-public-offline-tests/1",
+  "recorded_date": "2026-10-25",
+  "run": 65,
+  "passed": 48,
+  "skipped": 17,
+  "failures": 0,
+  "errors": 0,
+  "camera_opened": false,
+  "scope": "Candidate, preparation and runtime source tests; private compiled/input fixtures excluded"
+}

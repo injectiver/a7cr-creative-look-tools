@@ -17,7 +17,7 @@ sys.path.insert(0, str(ROOT/"research/repos/a7c2-fl23-research/src/looks"))
 from looktool import six, sixbuild
 
 OUT = ROOT/"private/offline/lut-port/candidate"
-INPUT = ROOT/"private/install/20261020-a7cr-fl23-01/payload"
+INPUT = ROOT/"private/install/fl23/payload"
 EXPECTED = {"AP":"4ff7051bfca944b02ce150f911357d5d0173bbf2bfad01a08c9dea13a0dac019",
             "CP":"7c6a4baca721232aefe945ebd080cda5665c6c9488d61fa81849156b9302c446"}
 BASE = 0x108000

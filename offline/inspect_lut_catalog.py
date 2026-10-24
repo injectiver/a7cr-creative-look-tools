@@ -81,7 +81,7 @@ def profiles():
 
 def audit():
     asset = json.loads((UPSTREAM / "src/looks/assets/runtime-v1.json").read_text())
-    folder = ROOT / "private/install/20261020-a7cr-fl23-01/payload"
+    folder = ROOT / "private/install/fl23/payload"
     ap, cp = ((folder / f"candidate-{kind}.private.bin").read_bytes() for kind in ("AP", "CP"))
     result = []
     for kind, data, spec, field, raw_key in (

@@ -8,7 +8,7 @@ from preflight_fl23 import sha
 
 RESOURCE='string_croatian_vertical.uxc'
 TEMP=frozenset(('a7cr.six.boundary.so','a7cr.six.boundary.data','a7cr.six.boundary.result'))
-MANIFEST=ROOT/'private/lut-install/six-20261020-01/resource-mirror/mirror.private.json'
+MANIFEST=ROOT/'private/lut-install/six/resource-mirror/mirror.private.json'
 
 
 def read(camera,package,folder,record):

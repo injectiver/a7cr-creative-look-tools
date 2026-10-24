@@ -11,7 +11,7 @@ from inspect_sources import save_json
 sys.path.insert(0,str(ROOT/'device'))
 from install_six_luts import Package
 
-OUT=ROOT/'private/lut-install/six-20261020-01/resource-mirror'
+OUT=ROOT/'private/lut-install/six/resource-mirror'
 FILE='string_croatian_vertical.uxc'
 
 

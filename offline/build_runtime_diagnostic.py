@@ -20,7 +20,7 @@ SPANS = (("converter", 0x3528CEC, 112), ("capabilities", 0x4B2F209, 2),
 
 def build():
     OUT.mkdir(parents=True, exist_ok=True)
-    ap_path = ROOT / "private/install/20261020-a7cr-fl23-01/payload/candidate-AP.private.bin"
+    ap_path = ROOT / "private/install/fl23/payload/candidate-AP.private.bin"
     spans = []
     with ap_path.open("rb") as stream:
         elf = ELFFile(stream)
