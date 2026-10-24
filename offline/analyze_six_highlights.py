@@ -14,7 +14,10 @@ import sys
 
 import numpy as np
 
-ROOT = Path(__file__).resolve().parents[1]
+import sys as _path_sys
+_path_sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from tools.project_paths import runtime_root
+ROOT = runtime_root(Path(__file__).resolve().parents[1])
 UPSTREAM = ROOT / "research/repos/a7c2-fl23-research"
 sys.path.insert(0, str(UPSTREAM / "src/looks"))
 from looktool import calibration, native, project
@@ -82,7 +85,7 @@ def main():
         }
         rows.append(row)
 
-    settings = json.loads((ROOT / "private/lut-install/six-20261020-01/package.private.json").read_text())["settings"]
+    settings = json.loads((ROOT / "private/lut-install/six/package.private.json").read_text())["settings"]
     recipes = []
     for slot in range(1, 7):
         fields = [f for f in settings if f["slot"] == slot]

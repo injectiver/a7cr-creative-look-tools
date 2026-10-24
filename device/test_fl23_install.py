@@ -365,7 +365,7 @@ class PreservationScopeTests(unittest.TestCase):
                 subject.preserved(before, after, {target: b"not-a-write-target"})
 
     def test_actual_private_failed_capture_proves_complete_cp_and_no_saved_ap_change(self):
-        root = subject.ROOT / "private/install/20261020-a7cr-fl23-01"
+        root = subject.ROOT / "private/install/fl23"
         if not (root / "install-20261020T113452594626Z").is_dir():
             self.skipTest("Actual private failure fixture is not present")
         package = subject.Package(root)
@@ -436,10 +436,12 @@ class GuardTests(unittest.TestCase):
 
     def test_install_replay_guard_runs_before_usb_session_creation(self):
         with tempfile.TemporaryDirectory() as folder:
+            # This unit must never contend with an owner's real camera session.
+            (Path(folder) / "private").mkdir()
             package = fake_package(Path(folder))
             (package.root / "state.private.json").write_text(json.dumps({"phase": "STOPPED_INSPECTION_REQUIRED"}))
             argv = ["fl23_install.py", "install", "--workspace", str(package.root), "--battery-percent", "100"]
-            with (patch.object(subject, "Package", return_value=package), patch.object(subject.os, "geteuid", return_value=0),
+            with (patch.object(subject, "ROOT", Path(folder)), patch.object(subject, "Package", return_value=package), patch.object(subject.os, "geteuid", return_value=0),
                   patch.object(subject.sys, "argv", argv), patch.object(subject, "Session") as session):
                 with self.assertRaises(ValueError):
                     subject.main()

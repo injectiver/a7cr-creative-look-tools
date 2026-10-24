@@ -23,7 +23,7 @@ sys.path.insert(0, str(ROOT/"research/repos/a7c2-fl23-research/src/looks"))
 from looktool import backupstore, resources, devicesettings
 
 RESOURCE_NAMES = tuple(json.loads((ROOT/"research/repos/a7c2-fl23-research/src/looks/assets/resource-files.json").read_text()))
-WORKSPACE = ROOT/"private/install/20261020-a7cr-fl23-01"
+WORKSPACE = ROOT/"private/install/fl23"
 NAMES = ("Classic Neg.", "Classic Chrome", "Nostalgic Neg.", "Eterna", "GR Positive Film", "GR Negative Film")
 
 

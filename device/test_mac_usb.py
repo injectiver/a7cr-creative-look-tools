@@ -8,6 +8,17 @@ import mac_usb
 
 
 class MacOwnershipTests(unittest.TestCase):
+    def test_registry_observer_omits_serials_and_uses_only_ioreg(self):
+        sony = {'IOObjectClass': 'IOUSBHostDevice', 'idVendor': 0x054C,
+                'idProduct': 0x0336, 'locationID': 2097152,
+                'USB Product Name': 'Sony USB Device', 'USB Serial Number': 'PRIVATE'}
+        other = dict(sony, idVendor=0x05AC)
+        with patch.object(mac_usb, 'command', return_value=mac_usb.plistlib.dumps([sony, other])) as command:
+            result = mac_usb.sony_usb_snapshot()
+        self.assertEqual(result, [{'pid': '0336', 'location_id': 2097152, 'product': 'Sony USB Device'}])
+        self.assertNotIn('PRIVATE', str(result))
+        command.assert_called_once_with('/usr/sbin/ioreg', '-p', 'IOUSB', '-l', '-a')
+
     def fixture(self):
         identity = {"normal_pid": 0x0E86}
         target = {"IOObjectClass": "IOUSBHostDevice", "idVendor": 0x054C,

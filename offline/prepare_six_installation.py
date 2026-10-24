@@ -15,8 +15,8 @@ sys.path.insert(0,str(ROOT/'research/repos/a7c2-fl23-research/src/looks'))
 from looktool.backupstore import Store
 from looktool import nameworker
 
-JOB=ROOT/'private/lut-install/six-20261020-01'
-CHECKPOINT=ROOT/'private/lut-checkpoints/six-before-20261020T130503578711Z'
+JOB=ROOT/'private/lut-install/six'
+CHECKPOINT=ROOT/'private/lut-checkpoints/baseline'
 
 
 def prepare():

@@ -14,10 +14,10 @@ import re
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-ROOT_FILES = {".gitignore", "LICENSE", "NOTICE.md", "README.md", "README.zh-CN.md",
+ROOT_FILES = {"AGENTS.md", ".gitignore", "LICENSE", "NOTICE.md", "README.md", "README.zh-CN.md",
               "CHANGELOG.md", "a7cr.py", "requirements.txt", "requirements-research.txt", "upstream.lock.json"}
 TREES = {"device", "offline", "tools", "tests", "docs", "licenses", "validation", ".github"}
-EXTENSIONS = {".py", ".md", ".txt", ".json", ".yml", ".yaml"}
+EXTENSIONS = {".py", ".md", ".txt", ".json", ".yml", ".yaml", ".c", ".h"}
 GENERATED_AUDIT = "validation/publication-audit.json"
 SECRET_PATTERNS = [re.compile(r"github_pat_[A-Za-z0-9_]{20,}"),
                    re.compile(r"gh[pousr]_[A-Za-z0-9]{20,}"),
@@ -26,6 +26,7 @@ SECRET_PATTERNS = [re.compile(r"github_pat_[A-Za-z0-9_]{20,}"),
 UUID_PATTERN = re.compile(r"\b[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}\b")
 # One visibly synthetic ABI fixture, never a captured device/host identifier.
 SYNTHETIC_BOOT_ID = "-".join(("12345678","1234","1234","1234","123456789abc"))
+SYNTHETIC_ALTERNATE_BOOT_ID = "-".join(("abcdefab","1234","1234","1234","123456789abc"))
 
 
 def allowed(path):
@@ -65,8 +66,8 @@ def audit(root, deny=()):
         text = raw.decode("utf-8")
         if any(pattern.search(text) for pattern in SECRET_PATTERNS) or any(value and value in text for value in deny):
             raise ValueError("Potential identifier/credential in "+str(rel)+"; matched values withheld")
-        if any(not (str(rel) in {"device/test_diagnose_fl23.py", "offline/check_runtime_diagnostic.py"}
-                    and m.group()==SYNTHETIC_BOOT_ID)
+        if any(not (str(rel) in {"device/test_diagnose_fl23.py", "offline/check_runtime_diagnostic.py", "offline/check_single_slot_runtime.py", "offline/check_portrait_loaded.py", "offline/check_portrait_slots_runtime.py", "device/test_single_slot_checkpoint.py", "offline/test_portrait_slots_runtime.py", "device/test_portrait_slots_plan.py", "offline/test_prepare_single_slot_installation.py", "offline/test_prepare_portrait_slots_installation.py"}
+                    and m.group() in {SYNTHETIC_BOOT_ID,SYNTHETIC_ALTERNATE_BOOT_ID})
                for m in UUID_PATTERN.finditer(text)):
             raise ValueError("Unreviewed UUID in "+str(rel)+"; matched value withheld")
         if path.suffix == ".py":

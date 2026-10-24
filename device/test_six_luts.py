@@ -48,7 +48,7 @@ class HostJob(mod.Job):
         return {'native_verified':True}
 
 
-@unittest.skipUnless((mod.ROOT / "private/lut-install/six-20261020-01/package.private.json").is_file(), "Private per-body fixture deliberately excluded from the public release")
+@unittest.skipUnless((mod.ROOT / "private/lut-install/six/package.private.json").is_file(), "Private per-body fixture deliberately excluded from the public release")
 class SixTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):cls.p=mod.Package()

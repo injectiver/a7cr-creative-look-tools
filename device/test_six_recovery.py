@@ -11,7 +11,7 @@ import inspect_six_stop as mod
 from install_six_luts import Package
 
 
-@unittest.skipUnless((mod.ROOT / "private/lut-install/six-20261020-01/package.private.json").is_file(), "Private per-body fixture deliberately excluded from the public release")
+@unittest.skipUnless((mod.ROOT / "private/lut-install/six/package.private.json").is_file(), "Private per-body fixture deliberately excluded from the public release")
 class ReviewTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):cls.p=Package()

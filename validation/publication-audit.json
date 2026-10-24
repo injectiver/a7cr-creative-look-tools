@@ -2,8 +2,8 @@
   "schema": "a7cr-source-publication-audit/1",
   "passed": true,
   "method": "Explicit text-source allowlist, identifier/credential scan, Python parse and opaque-blob checks",
-  "file_count": 81,
-  "total_bytes": 521443,
+  "file_count": 127,
+  "total_bytes": 1108470,
   "firmware_DCP_LUT_photo_backup_assets_included": false,
   "short_patch_signatures_and_firmware_offsets_disclosed": true,
   "not_a_legal_clearance_or_complete_secret_scanner": true,
@@ -14,39 +14,49 @@
       "sha256": "ec621fe1445ad9272bc3adc786ef0eb7253d49279f4358984bcea99957cb62a8"
     },
     {
+      "path": ".github/workflows/source-tests.yml",
+      "bytes": 895,
+      "sha256": "b80d6cb1d52b6f47fbb0cfbe9e91c868bc7a796343f85db032138fd4a259045d"
+    },
+    {
       "path": ".gitignore",
-      "bytes": 270,
-      "sha256": "979a168acbe75fb6cbb5e9cd3b71638558866984527ac75c88f2f37dddfc48cb"
+      "bytes": 368,
+      "sha256": "150f2b4a2b617692a8329b30488b860c951f90e29b3d22d1e1fd4c8078d2ca43"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 3853,
+      "sha256": "78ba937ddb0d21b78f62b8dd8afeed42418282615f6f1c30741d745148e44900"
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 1244,
-      "sha256": "0092d596629a8ff69704ece1c6f0d22920e55c5b05269b87e3599968edd64ad7"
+      "bytes": 2726,
+      "sha256": "7884ba7f969325d37c0fc4e6a2ed142dfda1ddcd17695ad6876939e503b99e51"
     },
     {
       "path": "LICENSE",
-      "bytes": 1420,
-      "sha256": "7cc8bb023d43f186435dace9d8ffe62e7a44d94fa3c108ce1421ce5c02db60b5"
+      "bytes": 1484,
+      "sha256": "9f4a735a7835aa85fee60421257b680fa4f954aa539cf7cfcb3c6dbc6d8626e2"
     },
     {
       "path": "NOTICE.md",
-      "bytes": 5165,
-      "sha256": "729417b3bb4754c77d12c04dcbdbfdfc516999f14c275f33528402dc646cbfbc"
+      "bytes": 5740,
+      "sha256": "81dc4322dc8794e0657f5cc71f90e7a14731901b6dcf669305224ab20d7822d5"
     },
     {
       "path": "README.md",
-      "bytes": 13769,
-      "sha256": "b1ef8ea90313c3bbc9f4e5a02970d95b74485f7bdbb3cab463a6666e6127dbb2"
+      "bytes": 9543,
+      "sha256": "338cabe1576761fd6bfd5c97f6d915fafcb4e841d59c879a409c8684ccbd0f88"
     },
     {
       "path": "README.zh-CN.md",
-      "bytes": 13001,
-      "sha256": "b41d687e4173a32e4814601f306f13bea5ea199724d9964ba830aabfd4ae6a2a"
+      "bytes": 8812,
+      "sha256": "1b76547a170826a8a48cbd4d208e09d08298e48ebc28b9dbd591f19e7752fdca"
     },
     {
       "path": "a7cr.py",
-      "bytes": 4470,
-      "sha256": "5f9d16c01a0d822dafbaea6e051b5078dad85c2ee9a3c11774eebffcbd0fc392"
+      "bytes": 7199,
+      "sha256": "6b8089833efaaac208ce9671022fbda777f3660f308d5f7318483cde69c80c4c"
     },
     {
       "path": "device/complete_six_luts.py",
@@ -60,8 +70,8 @@
     },
     {
       "path": "device/diagnose_fl23.py",
-      "bytes": 10153,
-      "sha256": "e9d09e017e469eadb7fd82ce86b856a3b499eda35c5dad11143e343016717148"
+      "bytes": 10136,
+      "sha256": "0cc32e68a3142bde1708cf510c1b58a0f8f6be4472ff02d67655ba8f2f352a5e"
     },
     {
       "path": "device/fl23_install.py",
@@ -75,13 +85,38 @@
     },
     {
       "path": "device/install_six_luts.py",
-      "bytes": 15489,
-      "sha256": "6a9d99d7725f2ff9d438d73ba2b9f686a2d557c4aa84ec2460f3ebc6eeb18a8c"
+      "bytes": 15460,
+      "sha256": "72e14b672343c9c1eb7a7acefb87c85e985ec936c7b9ee5df36612a11e83be7f"
     },
     {
       "path": "device/mac_usb.py",
-      "bytes": 5284,
-      "sha256": "333f6b7a72724e71d75d898c017c9fce1e0d540159844f42f8139a44f753d57d"
+      "bytes": 5895,
+      "sha256": "db104448113317018e9f53c2b1a27c6f06bd6897a0ec30552484083d586b15d9"
+    },
+    {
+      "path": "device/native/portrait_slots_bindings.c",
+      "bytes": 4282,
+      "sha256": "bf2f4e4ddbcf2055cd36e5b4657d127ed4198e5d04a0ea1ec3169b4c99f290a8"
+    },
+    {
+      "path": "device/native/single_slot_bindings.c",
+      "bytes": 4132,
+      "sha256": "12efacb7c5825c22426b78d7aa99ab5bc79ca0767e804f05dc1f1c49691c2c6a"
+    },
+    {
+      "path": "device/portrait_slots_checkpoint.py",
+      "bytes": 11910,
+      "sha256": "e0f6e67e3a4d7201a2a0ebb29130b9b32bfd357106ec10f8a1a0a9ab4b254022"
+    },
+    {
+      "path": "device/portrait_slots_install.py",
+      "bytes": 44616,
+      "sha256": "2646f915331a9f19e2675558b054f521feb0c6c5cca147b6fe6ba42a8e146dce"
+    },
+    {
+      "path": "device/portrait_slots_plan.py",
+      "bytes": 9194,
+      "sha256": "a2f8f870eb9bb5682f1b48951effe730f6f32c24859abb5945bc9700c16a3451"
     },
     {
       "path": "device/preflight_fl23.py",
@@ -90,13 +125,13 @@
     },
     {
       "path": "device/prepare_six_luts.py",
-      "bytes": 9829,
-      "sha256": "0a94de7baa29813cb04c0341ae6dd4fbeb0ac51f580f103bd0963a0c46d6c53a"
+      "bytes": 9812,
+      "sha256": "c351fdb53912a2a9849e173aa454e32e4e88c06cb68e5cfad94529c028ef1fd5"
     },
     {
       "path": "device/read_backup.py",
-      "bytes": 20412,
-      "sha256": "8196ef9055f9d7738101871526a28ea1a50c1e3266c01b0c9e62c06ed9bbeb6d"
+      "bytes": 21053,
+      "sha256": "25b2af4b4d129c5af83608abfaa0cfd6ae25a64e42bba247a4414818371a4906"
     },
     {
       "path": "device/requirements.txt",
@@ -105,8 +140,28 @@
     },
     {
       "path": "device/resource_mirror.py",
-      "bytes": 2619,
-      "sha256": "d0b3b594d7a845aab52a1fe9a59a1baa01171de03d80eb3c6d84170deea78aa0"
+      "bytes": 2607,
+      "sha256": "927d7317e11f38004f6825b6c8d0d14fe57bbe18803125f0af50cc1006ac30b9"
+    },
+    {
+      "path": "device/review_portrait_exit_timeout.py",
+      "bytes": 12800,
+      "sha256": "dc5bae667f395f845f970ea3fe4cde90085f31a5cbec896c8549010b3d045f84"
+    },
+    {
+      "path": "device/single_slot_checkpoint.py",
+      "bytes": 15371,
+      "sha256": "ebe59a6502d206a1885f17e3bdd45baca29c619f995fb01d13154f1d3cd8092f"
+    },
+    {
+      "path": "device/single_slot_install.py",
+      "bytes": 41030,
+      "sha256": "88f042fcc1c0ec7c21d2df59a5d035fab181f5726c58c9c2ef74a64357aa4856"
+    },
+    {
+      "path": "device/single_slot_plan.py",
+      "bytes": 21233,
+      "sha256": "75dd9cbccc766e6cea4f309966e53b25a387124124e83e0a1de4086fa23fd2df"
     },
     {
       "path": "device/test_diagnose_fl23.py",
@@ -115,13 +170,28 @@
     },
     {
       "path": "device/test_fl23_install.py",
-      "bytes": 24539,
-      "sha256": "8cc55f1f2a09901dada7c1513228552ad1375dec283efd003f84f3dd482c959f"
+      "bytes": 24694,
+      "sha256": "1d7b897877796a778d75a4c64d0b43c2f18947ccc0861020168ee7aa698efde9"
     },
     {
       "path": "device/test_mac_usb.py",
-      "bytes": 5071,
-      "sha256": "786844c079cf9a8c2d50a8b518ed590b6e099eaa0991ad22118d3ee0e4293590"
+      "bytes": 5807,
+      "sha256": "4855d147ae6b45e0818b85dea079f9f332cd8d72699492ccdee849b2204f6bd2"
+    },
+    {
+      "path": "device/test_portrait_slots_checkpoint.py",
+      "bytes": 3372,
+      "sha256": "c6b15e4fe3a81109c46ec57d3e51340315f49535a5ad27712e9f8a4c6503fb48"
+    },
+    {
+      "path": "device/test_portrait_slots_install.py",
+      "bytes": 22104,
+      "sha256": "7ec3bfa9d32cb81d48a1cdd02ba3063f9314bf6ec77556e38b465741ee718b0e"
+    },
+    {
+      "path": "device/test_portrait_slots_plan.py",
+      "bytes": 9867,
+      "sha256": "1e2781b2d5623a8a7ef6e409d0c48721ad2e43af39997d5ed62e29a03ff88060"
     },
     {
       "path": "device/test_preflight_fl23.py",
@@ -129,9 +199,14 @@
       "sha256": "c8604a34956484f8335f652eb37a52eb33b0040bdff65a635664bb26e9bf62cf"
     },
     {
+      "path": "device/test_prepare_installation.py",
+      "bytes": 2688,
+      "sha256": "fbd8327dbb637daba8993871256149d9c2bd41679b64012a4798ea08697c9967"
+    },
+    {
       "path": "device/test_read_backup.py",
-      "bytes": 10779,
-      "sha256": "fd42d1f6bacec0174af809e88dbf2f6004427a4f1ccbcf5dc0d37d26da713107"
+      "bytes": 11906,
+      "sha256": "8beac4864dd7543a3285cf25e434b81515b3ac115e441650da3bacd7df41f999"
     },
     {
       "path": "device/test_resource_mirror.py",
@@ -139,19 +214,39 @@
       "sha256": "a659f0e3bedebd516d2b5f3ef5aa7df1fea17c6ce1ad49fe67ebd32eb85d3dd9"
     },
     {
+      "path": "device/test_review_portrait_exit_timeout.py",
+      "bytes": 3539,
+      "sha256": "bc62ea6371e38e706bdfb4d8791357ff9a0e5f65c3ea27e88c4688f886091217"
+    },
+    {
+      "path": "device/test_single_slot_checkpoint.py",
+      "bytes": 8056,
+      "sha256": "27e862013e801fce6e9c0840bdf503ddc1e313420e8560a7aea61a4d6cedff9e"
+    },
+    {
+      "path": "device/test_single_slot_install.py",
+      "bytes": 24979,
+      "sha256": "47e1854948109dacd5fb0981e672974f9e9ee0bc0fd337fa7eb6e8223394a5a5"
+    },
+    {
+      "path": "device/test_single_slot_plan.py",
+      "bytes": 12383,
+      "sha256": "8534042c3a14841f8c0a5d671da0f4f66e9475ddfd994787fd4edd4562cc9149"
+    },
+    {
       "path": "device/test_six_completion.py",
-      "bytes": 5674,
-      "sha256": "411b1cbc198eb85e724dfecdbf359a492198b051011559c7ac3d42668ebb5fa4"
+      "bytes": 5662,
+      "sha256": "25f7d16d7b0838410605a90e57e1e82925f76a15868a3b59ee5445d3b3049dc7"
     },
     {
       "path": "device/test_six_luts.py",
-      "bytes": 10592,
-      "sha256": "05a0f9c9a872d13003aeb47de7f6f57a3f153b36fe50353c728af8292b74e130"
+      "bytes": 10580,
+      "sha256": "07d0981e15fb67c504a2106ff8b009945fb3b8dced3e75092304e91a07ea9774"
     },
     {
       "path": "device/test_six_recovery.py",
-      "bytes": 6246,
-      "sha256": "b5fee1084d468e14a463ac879a556199deaaa056418f7ce5b1f3d5247694df56"
+      "bytes": 6234,
+      "sha256": "6cbf1ac1fd448eb5b77454e6d85b56eef1739b3574aed5487175a59e0c48e577"
     },
     {
       "path": "device/verify_six_luts.py",
@@ -160,23 +255,23 @@
     },
     {
       "path": "docs/VALIDATION.md",
-      "bytes": 7104,
-      "sha256": "3a71d99d72dc505a1238691d08689dd7c61d582492d515364560ed0d3d0ed573"
+      "bytes": 8781,
+      "sha256": "fd4108b7303c230db2523006f8d7dc3fc759e0d73ca737c7f5b8a38e0b91fe2e"
     },
     {
       "path": "docs/VALIDATION.zh-CN.md",
-      "bytes": 6005,
-      "sha256": "8fbad1a87fe472164c9701a8d491f46ba4a8ef43aa09f2cd12585b7af8151b8d"
+      "bytes": 7486,
+      "sha256": "aae2a1e46764acdf8048d59b7bea759ad4293a44258b920935bd3051e4872f2a"
     },
     {
       "path": "docs/WORKFLOW.md",
-      "bytes": 10413,
-      "sha256": "3add4ef9abdf8c299bc795ba851b2d9ce315614d0f15f6437d1f58a8815fba67"
+      "bytes": 13196,
+      "sha256": "a5e943fd02c17f34af68f0fce43d8c6ecb89930c16d4f6629b629f5c3974ab15"
     },
     {
       "path": "docs/WORKFLOW.zh-CN.md",
-      "bytes": 8822,
-      "sha256": "a1ef8f99b0f4756e4da6301dd57f9773ad564a451161d87086838ba01cce5d04"
+      "bytes": 11515,
+      "sha256": "30db6db15dabf6deffde53dbde52f78d1c6cb91f18767a78bb9127c9b6543bed"
     },
     {
       "path": "licenses/A7CII-MIT.txt",
@@ -205,8 +300,8 @@
     },
     {
       "path": "offline/analyze_six_highlights.py",
-      "bytes": 6673,
-      "sha256": "dc448a645b064ad788f4ca8c269b773bc0696e9985a64c54b796a84ec6d1d1df"
+      "bytes": 6810,
+      "sha256": "59e3d1efa1e25bacca7573a648505075ed03493c497f4fa3f3fe4adfa551297f"
     },
     {
       "path": "offline/audit_lut_bootstrap.py",
@@ -225,28 +320,43 @@
     },
     {
       "path": "offline/build_lut_candidate.py",
-      "bytes": 9836,
-      "sha256": "4569f94fe6d8910011b51333eac9460a5728e29f8067b6fd9ee772ded01c5755"
+      "bytes": 9819,
+      "sha256": "f1dcd834695b3882abbdf47cc6b8677ef4bb3a09c95c4df051f450be0d8aae39"
     },
     {
       "path": "offline/build_native_workers.py",
-      "bytes": 8373,
-      "sha256": "14df86763d3bec58640354458902c119d7f2f7c97b1132f31657825de5cb9b45"
+      "bytes": 8361,
+      "sha256": "5bd6d6b2a588d5a794fac6b516e170151e52dc5487137578b7bb2c8deed1bb72"
+    },
+    {
+      "path": "offline/build_portrait_loaded.py",
+      "bytes": 3220,
+      "sha256": "b4a275ce36469e127d4148d97c3fe90dfb656948fd9a7abf2175cccc4b333a0f"
+    },
+    {
+      "path": "offline/build_project_assets.py",
+      "bytes": 5854,
+      "sha256": "5b406f43e5782e5a84b341c023d27e431c3648941cd0bb355fa709f631254f11"
     },
     {
       "path": "offline/build_resource_mirror.py",
-      "bytes": 4668,
-      "sha256": "4301836c8987691daf597493bde14d0226c7740feff54ea4e5f3666b411bed5c"
+      "bytes": 4656,
+      "sha256": "ead0d04b0004980f7fff9da4afd800b4f8423cfb3345a1c3dba30b1f743e1934"
     },
     {
       "path": "offline/build_runtime_diagnostic.py",
-      "bytes": 6693,
-      "sha256": "983383d7b8d68114dbbb2f1cd7e398d2ff25ad459c2fb8471d678d1cfd6eee3d"
+      "bytes": 6676,
+      "sha256": "fd58360c27c2350ce9ea63730cb2e527e160f7913cc88810d7fd971de6723316"
+    },
+    {
+      "path": "offline/build_single_slot_reader.py",
+      "bytes": 3570,
+      "sha256": "51328bacb150909c01ad856bb756d6090aeee436012327bfdd18026db5000766"
     },
     {
       "path": "offline/build_six_runtime.py",
-      "bytes": 2507,
-      "sha256": "9715a01bda9ed2b6bda2734370cedef066a79f2efa904167befbf71b63da481e"
+      "bytes": 2495,
+      "sha256": "245c231c1a93a1019ea98507f84adf73fafbd24eacc72b2442a49f3b05e65b8d"
     },
     {
       "path": "offline/check_lut_candidate.py",
@@ -259,24 +369,54 @@
       "sha256": "7c44add3194d21eb9b25a4f42514939d5b3d06f441e71d175d066001628436e2"
     },
     {
+      "path": "offline/check_portrait_loaded.py",
+      "bytes": 7933,
+      "sha256": "046151b02e4ff7486590057cd4a713137ec2c3326fa5e01eccdc48ba07a8c00d"
+    },
+    {
+      "path": "offline/check_portrait_slots_installation.py",
+      "bytes": 19942,
+      "sha256": "8840aad48f3f22c4c5e6cc46f4d216d13cfa1fa8b1bed17392665606c6463a54"
+    },
+    {
+      "path": "offline/check_portrait_slots_runtime.py",
+      "bytes": 13432,
+      "sha256": "a0d337a85bda12f708c51dd56aaece6163638983df558d9c1e6ca6b405c42d09"
+    },
+    {
       "path": "offline/check_resource_mirror.py",
       "bytes": 3741,
       "sha256": "cfa75f0884629c761b35e3e39566af84776e9663adf6a7556a88e8a57b66f801"
     },
     {
       "path": "offline/check_runtime_diagnostic.py",
-      "bytes": 7478,
-      "sha256": "fbd188061109958e33e6962ed1f6eb8ece86eccb6b69d260a9aa577c3f74472f"
+      "bytes": 7461,
+      "sha256": "c0ffbdf0651febee8e6e00b2521f1e05a7ad09c314da654c01e82d2993ffd06b"
+    },
+    {
+      "path": "offline/check_single_slot_installation.py",
+      "bytes": 19876,
+      "sha256": "b9e886f191053936c0aaf191cfe066ae4cb37c615ec9d8fad20c085b273a15e0"
+    },
+    {
+      "path": "offline/check_single_slot_loading.py",
+      "bytes": 3306,
+      "sha256": "2cf45a4ba4dce950ba3298ae4b8e04e9a0ba24254f9487ca1b55e9f57c70fe37"
+    },
+    {
+      "path": "offline/check_single_slot_runtime.py",
+      "bytes": 20222,
+      "sha256": "b8b9b381e18add3c3598041a38e39b241c69a727913ae8e82ea3c6accc6fb2d5"
     },
     {
       "path": "offline/check_six_completion.py",
-      "bytes": 2541,
-      "sha256": "87b9b52a5c2ba54c11a9b7481e3800cc8a8f21ed582d9031f038c07ca8588190"
+      "bytes": 2529,
+      "sha256": "9997ca44f2fc429ad0b85f25e98562e301433ff3d5a2f6fe77f1e917dc3201d2"
     },
     {
       "path": "offline/check_six_workers.py",
-      "bytes": 12064,
-      "sha256": "48f2821d4ba7d7fa8019b374a1b6af1a799da684b224853188c7a67ed41b3da1"
+      "bytes": 12052,
+      "sha256": "30ea7ac4ad7634b427c0f509122020cee7606ddd69fb7445ced7aaa7348ff7dd"
     },
     {
       "path": "offline/color_plan.py",
@@ -304,29 +444,59 @@
       "sha256": "66437667e4c31c6dc43af545555c11e270262e305ffe2b9a511f7e973fc656ff"
     },
     {
+      "path": "offline/finalize_portrait_slots.py",
+      "bytes": 5842,
+      "sha256": "20e373637f7a5ec4445ecab4834e8ceb549e77c443bbbb145e496e9e17cc23f3"
+    },
+    {
+      "path": "offline/finalize_single_slot.py",
+      "bytes": 5795,
+      "sha256": "138e8dac118e5e00d5aedcc4f7d4022e0002211083dd619494ccbb7b932b8fd9"
+    },
+    {
       "path": "offline/fit_selected_six.py",
       "bytes": 5126,
       "sha256": "70d9f2c92c419c668cac90928c360486f21a1142d5f497b515df6501bfa820c8"
     },
     {
       "path": "offline/inspect_lut_catalog.py",
-      "bytes": 6666,
-      "sha256": "910308391a63ab07c22792cf671478026d38f3a9967ffddb30ac988407983dae"
+      "bytes": 6649,
+      "sha256": "8c6ef557591ebf840b7ee70e7cd96d5222ab0408d791c996e63e2f66f287aaa7"
     },
     {
       "path": "offline/inspect_sources.py",
-      "bytes": 6026,
-      "sha256": "c197d7c40ae1e69c39f21464a6f05091e2389371e6eba7b7b7f2ba5b096d3869"
+      "bytes": 6175,
+      "sha256": "0f60a34a8c3d376f7e63005f5c86d284bb9c23aa17b3e1e75b064c48bbd07e5c"
+    },
+    {
+      "path": "offline/portrait_slots_candidate.py",
+      "bytes": 20881,
+      "sha256": "c5631a3e90399e606025a88d9385b495430dc1fbf3b66feaea330884b8acfb6d"
+    },
+    {
+      "path": "offline/portrait_slots_runtime.py",
+      "bytes": 11380,
+      "sha256": "21cec665f56b413f3bda363925c5c2a40c17fd9f7683d883046c5f7caa6e2485"
     },
     {
       "path": "offline/prepare_highlight_study.py",
-      "bytes": 6405,
-      "sha256": "9bbeafd8c77aaa7ae3d0749bd77fc993832f667d7fc47cf89cebf42ab80c12a7"
+      "bytes": 6554,
+      "sha256": "96ad224fbef0706b92c3e79caa941bb170eafa2388a6ee2db458b8c6121fafe0"
     },
     {
       "path": "offline/prepare_installation.py",
-      "bytes": 8073,
-      "sha256": "8a37ccf4ca750c45e21a5d8cb2a574b75bbd51ba23dcf83bc4ecf8e30ecec017"
+      "bytes": 9221,
+      "sha256": "92512c87a946a2735e46a18eb200051fe10445783d13aff73fc3b2da6b580b7b"
+    },
+    {
+      "path": "offline/prepare_portrait_slots_installation.py",
+      "bytes": 35774,
+      "sha256": "9c569107c253601a7e93bfd2274c1da667997e7c2efe5f5f392cbcd4506e04b7"
+    },
+    {
+      "path": "offline/prepare_single_slot_installation.py",
+      "bytes": 32104,
+      "sha256": "5b951a2998309ae60e065ffcac5915c1df96693a65e4c5907301cfa811c1cd0f"
     },
     {
       "path": "offline/prepare_six_completion.py",
@@ -335,13 +505,48 @@
     },
     {
       "path": "offline/prepare_six_installation.py",
-      "bytes": 6215,
-      "sha256": "a79008b5be8bcbe915c282353ac7afea2ed926b1d8d0e81010395bff81b71746"
+      "bytes": 6178,
+      "sha256": "ce8917b78bd403532eb172261cb02bdf8ba3a7a11227becd5b3c17f3f1d9dd4c"
     },
     {
       "path": "offline/requirements.txt",
       "bytes": 100,
       "sha256": "27011beb7c6fcfe5f751a6467571adab6ef888903276e941392dd8e58a78549b"
+    },
+    {
+      "path": "offline/single_slot_candidate.py",
+      "bytes": 20351,
+      "sha256": "3468f5afa60cb5bc7cd0d43a7b3eac4568d4d2c96c79b59b9b0427347e35ab61"
+    },
+    {
+      "path": "offline/single_slot_runtime.py",
+      "bytes": 10020,
+      "sha256": "99910cda91a20028437d7dde5af5a1171ec678726826c7519089a4300343059e"
+    },
+    {
+      "path": "offline/test_portrait_slots_candidate.py",
+      "bytes": 6144,
+      "sha256": "56ef27fb77482784e25d00d3baf1feb85f8affc3040033caea90845664a6936e"
+    },
+    {
+      "path": "offline/test_portrait_slots_runtime.py",
+      "bytes": 6021,
+      "sha256": "b1ef3c6eab7c9a8c714a2cb5c5206c9c93a896720a490b3972e344963d3258c3"
+    },
+    {
+      "path": "offline/test_prepare_portrait_slots_installation.py",
+      "bytes": 18897,
+      "sha256": "59123f0b0c66fa49df884d9da3f49832dda79e3ffffbcda421beb25f1def32b3"
+    },
+    {
+      "path": "offline/test_prepare_single_slot_installation.py",
+      "bytes": 17479,
+      "sha256": "ad3c1f36efc55904f91429632910ce579fc1530062e50eb306cad782ee75eea0"
+    },
+    {
+      "path": "offline/test_single_slot_candidate.py",
+      "bytes": 9013,
+      "sha256": "8cafd2fc4f70dad8da6e3f8df2591622f1be29ca0ce300c50c05aa8587f8b6e1"
     },
     {
       "path": "requirements-research.txt",
@@ -369,14 +574,19 @@
       "sha256": "ff4bc1476f055a1738f7e73ac8030fd24126ab61eb1194568e677bf0d3812c89"
     },
     {
+      "path": "tests/test_workflow.py",
+      "bytes": 7349,
+      "sha256": "7c57d0950c0a95f60006b05c548616d22725cdb85a90d2f8544f7f1e26759ec5"
+    },
+    {
       "path": "tools/__init__.py",
       "bytes": 77,
       "sha256": "af87be7adf7df004f584874f477e9de881ce708f1a2e736bfee56729939a4974"
     },
     {
       "path": "tools/audit_publication.py",
-      "bytes": 5278,
-      "sha256": "3ea5705135dfbcbba1b30bb19145ae9bf060a2cd77578ff2c744bfb88b7b549f"
+      "bytes": 5771,
+      "sha256": "2d17034f7649ed0794c77c544de558eb6a4d3333c46efae3680a7294e0aa2785"
     },
     {
       "path": "tools/fit.py",
@@ -389,9 +599,14 @@
       "sha256": "ed37354815b66e5c98e93ef03a00c951a0d34f8b22693788ff5dab6b97eb4e29"
     },
     {
+      "path": "tools/project_paths.py",
+      "bytes": 919,
+      "sha256": "8af2a9d1eb0c2288f41e9c27395ddb4570839eee75686d26924be53e3ce50664"
+    },
+    {
       "path": "tools/run_tests.py",
-      "bytes": 1205,
-      "sha256": "9ce943e3ec4a7a06ffe7f000f27c1134c8ebf240f05f2011293b16dc27c0ab99"
+      "bytes": 1268,
+      "sha256": "ef25b63bf561b8478c625ed8ff4a09befb00abef9de1f5c3b9aac13b956ed544"
     },
     {
       "path": "tools/upstream.py",
@@ -399,9 +614,19 @@
       "sha256": "bf0d181d7a2f80c1f1a0d11b0b067c8b56321170213af0147d908ce2c229e7a2"
     },
     {
+      "path": "tools/workflow.py",
+      "bytes": 12094,
+      "sha256": "b14f1d13e02240e61eb5dd153eb0e194ed91fc319c258d869d19639ef68a2d07"
+    },
+    {
       "path": "upstream.lock.json",
       "bytes": 1199,
       "sha256": "8f77d6f0fb77e4b82040cf8084e1d439af4906dc60ad0cc4d0ff69172ed782b3"
+    },
+    {
+      "path": "validation/creative-look-validation.json",
+      "bytes": 2731,
+      "sha256": "23524394b4a9855418f269d2ece5fe8ce0eebd1e9c3502dbfceb002721f81dd2"
     },
     {
       "path": "validation/environment.json",
@@ -409,9 +634,14 @@
       "sha256": "dd642453c63812a121485e3f5c2687be4b6d59512aca4e58380043b10d009e18"
     },
     {
+      "path": "validation/offline-tests.json",
+      "bytes": 287,
+      "sha256": "0c396080923f7647a26e39b0139cf7c33b8719ae3b278f9b7e83dcfadb99b3c9"
+    },
+    {
       "path": "validation/public-tests.json",
-      "bytes": 420,
-      "sha256": "60d8d1404a5f7dc9203e32a4f4e42e3625c992de64ce64eb51f46283390804a5"
+      "bytes": 407,
+      "sha256": "a3f29c2b569c4b59899bc87c1dfd49fa018e46632c51cf414b61167a56da9e0d"
     }
   ]
 }

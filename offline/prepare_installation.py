@@ -16,14 +16,35 @@ from read_backup import backup_sections, CP_UNITS
 from preflight_fl23 import decode_program, decode_wbi
 from fl23_install import Package, durable_json, store_private, preserved, CP_KEYS, AP_KEYS
 
-CAPTURE = ROOT / "private/body-backups/20261020-a7cr-read02"
-SECOND = ROOT / "private/body-backup-copy/20261020-a7cr-read02"
-PREFLIGHT = ROOT / "private/preflight/20261020-a7cr-check01"
-DESTINATION = ROOT / "private/install/20261020-a7cr-fl23-01"
+CAPTURE = ROOT / "private/body-backups/baseline"
+SECOND = ROOT / "private/body-backup-copy/baseline"
+PREFLIGHT = ROOT / "private/preflight/fl23"
+DESTINATION = ROOT / "private/install/fl23"
 
 
 def sha(raw):
     return hashlib.sha256(raw).hexdigest()
+
+
+def load_completed_capture(first, second):
+    """Use this run's successful backup, not the historical failure finalizer."""
+    raw = (first / "backup.private.json").read_bytes()
+    if raw != (second / "backup.private.json").read_bytes():
+        raise ValueError("Backup manifests differ between the two copies")
+    captured = json.loads(raw)
+    if (captured.get("schema") != "a7cr-read-only-backup/1"
+            or captured.get("phase") != "READ_ONLY_BACKUP_COMPLETE"
+            or captured.get("firmware_version_user_confirmed") != "2.01"
+            or captured.get("identity", {}).get("model") != "ILCE-7CR"
+            or captured.get("camera_files_or_settings_written") is not False
+            or captured.get("native_worker_uploaded") is not False):
+        raise ValueError("A complete unchanged A7CR 2.01 backup is required")
+    events = json.loads((first / "events.private.json").read_text())
+    phases = [event["phase"] for event in events]
+    if (not phases or phases[-1] != "complete" or "stopped_no_retry" in phases
+            or "service_exit_returned" not in phases or "normal_usb_returned" not in phases):
+        raise ValueError("Backup service exit and normal USB return are not confirmed")
+    return captured
 
 
 def prepare():
@@ -31,7 +52,7 @@ def prepare():
     audit = json.loads((ROOT / "private/offline/fl23-candidate/audit.private.json").read_text())
     workers_path = ROOT / "private/native-workers/workers.private.json"
     workers = json.loads(workers_path.read_text())
-    captured = json.loads((CAPTURE / "captured-backup.private.json").read_text())
+    captured = load_completed_capture(CAPTURE, SECOND)
     preflight = json.loads((PREFLIGHT / "preflight.private.json").read_text())
     events = json.loads((PREFLIGHT / "events.private.json").read_text())
     if (preflight["phase"] != "CAMERA_CHECKS_PASSED_NOT_INSTALLED" or events[-1]["phase"] != "complete"
@@ -82,7 +103,7 @@ def prepare():
         payloads[f"original-{key:08x}"] = original_sections[1][key].data
     new_units = merge(*(payloads[f"original-{key:08x}"] for key in CP_KEYS), donor_records(factory_units("ILCE-1M2_4.00")))
     for key, raw in zip(CP_KEYS, new_units):
-        prepared = ROOT / "private/offline/20261020-a7cr-read02-body-plan" / f"candidate-unit-{key:08x}.private.bin"
+        prepared = ROOT / "private/offline/baseline-body-plan" / f"candidate-unit-{key:08x}.private.bin"
         if raw != prepared.read_bytes():
             raise ValueError("Body color merge differs from the reviewed plan")
         payloads[f"candidate-{key:08x}"] = raw

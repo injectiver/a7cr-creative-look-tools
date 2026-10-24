@@ -2,253 +2,165 @@
 
 [English](README.md) · **简体中文**
 
-面向 **Sony ILCE-7CR / A7CR 固件 2.01** 的研究源码与电脑端工具：原生
-FL2/FL3 适配、六个以 ST 为基础的自定义外观槽、macOS USB 操作，以及
-RAW/JPEG 高光诊断。
+面向 **Sony ILCE-7CR / A7CR 固件 2.01** 的 Python 研究工具：原生 FL2/FL3、
+以 ST 为基础的自定义创意外观、macOS USB 接管，以及离线 DCP 拟合。
+人和各类具备终端能力的 coding agent 都能使用，不依赖特定客户端、MCP 或账号。
 
-**当前版本：`0.1.0-research`。实测范围为一台 A7CR 和一台 Apple Silicon Mac。**
-公开 CLI 提供环境检查、仅描述符识别、显式只读备份、离线 DCP 拟合与本地照片分析。
-安装程序和原生阶段源码作为研究接口提供；首版没有通用 `install` 命令，也不提供
-可直接刷入的固件。若干历史构建脚本仍要求经过审核的私人工作目录和对应任务路径。
-参见[研究流程](docs/WORKFLOW.zh-CN.md)。
+**0.2.0-research** 加入单槽 **Classic Chrome** 流程，以及保留槽 1、向槽 2/3
+增量添加 **PRO Neg. Std + ASTIA / SOFT** 的流程。这些是 Sony 上的拟合版本，
+不能仅凭外观名称认定色彩与富士原机相同。
 
-这是非官方研究。修改固件可能导致相机无法启动。完整文件读回、模拟器通过或新的
-内核启动，都不能证明全部实机行为正确或保证恢复。没有在任意机身安装、完整实机
-回退或救砖能力的承诺。
+## 提供的内容
 
-## 贡献与来源
+- A7CR 2.01 适配源码、原生 worker 源码、主机规划，以及精确的程序正向／逆向窗口。
+- 分开核对保存值与实际运行 ST；仅针对选中槽的原生锁内比较后写入；完整程序／资源
+  读回；保留本机校准、未选槽和原有外观的检查。
+- 输出 **JSON stdout** 的私人项目 CLI，分别执行检查点、准备、模拟、安装、核验、
+  还原；每次操作保留独立日志。默认环境／状态检查不打开 USB。
+- 对实际遇到的“写入已结束、等待普通 USB 返回超时”提供受限核查：重解码原始报告，
+  冷启动后重新只读核验，保留失败记录；不会重新安装。
+- 通用 [AGENTS.md](AGENTS.md) 和中英文流程／验证文档，不需要某一家的 agent API。
 
-FL23 与 DCP／自定义外观的方法基础来自
-[QAQLeonard 的 A7C II 工具](https://github.com/QAQLeonard/a7c2-fl23-research)及
-[lzh2016zzz 的 A7CR 研究](https://github.com/lzh2016zzz/a7cr-fl23-research)。
-本项目整理并实现 A7CR 侧适配与本次实际使用的 macOS 流程，包括：
+仓库不附带固件包、完整或修改后的固件组件、逐机备份／校准、生成的原生二进制、
+DCP/LUT 或私人照片。使用者在本机提供相应输入，并保留各自适用的许可。
 
-- A7CR 对应的原生 FL23 选择、元数据／默认值与精确来源的处理补丁，保留本机校准。
-- A7CR 六槽自定义外观适配、AP／CP 代码与数据边界、菜单资源名称、ST 配方绑定，
-  以及保留原有 FL／FL2／FL3 的检查。
-- 基于 MDHan 工作改编的 macOS 相机磁盘归属核对、非强制卸载和 USB 接口捕获。
-- 写入中断后先核对已完成阶段，再只收尾确实未执行的部分；不盲目重复未知结果的写入。
-- 针对一次最终数据长度落在 512 字节边界的超时，采用经过核验的临时填充副本读取，
-  保留原始资源。
-- 可复现的 RAW/JPEG 数值分析，将 RAW 已到上限与 JPEG 输出为白色分开判断。
+## 实测范围
 
-这些属于适配、实现和验证贡献，不声称首次发明相机协议、FL23 方法或 DCP 格式。
-完整署名与许可见 [NOTICE.md](NOTICE.md)，不暗示上游作者为本项目背书。
+原始经过审核的实现使用一台 A7CR 2.01 和一台 Apple Silicon Mac。原生 FL2/FL3、
+单槽 CC 已安装；随后新增两个人像槽，完成写入、完整读回和新启动后的机器核验。
+对应阶段检查过 CC、PRO Neg. Std、ASTIA、ST、FL2、FL3 的新 JPEG。最近三张为
+室内静物，不是肤色测试。完整实机恢复尚未演练。
 
-## 能力与验证范围
+通用项目接口经过电脑端离线测试。路径改为私人项目，并不等于在其他机身或系统上
+做过新实测。本版相机 USB 操作只支持 macOS；离线工具不代表 Windows/Linux
+相机操作已兼容。环境记录与证据范围见[验证说明](docs/VALIDATION.zh-CN.md)。
 
-| 内容 | 本仓库提供 | 已有证据与限制 |
-|---|---|---|
-| 电脑环境 | `doctor` | 不打开 USB，不读取电脑序列号或主机名 |
-| USB 识别 | `identify` | 仅产品／接口描述符，不进行服务认证 |
-| 当前状态备份 | `backup` | 显式进入服务会话；两份独立按字节核验的本地副本；不持久写入相机 |
-| DCP 转换 | `fit-dcp` | 仅离线原生形状候选表，不生成固件或安装任务 |
-| RAW+JPEG 分析 | `analyze-photos` | 已对选定 A7CR 文件对验证；不修改原片 |
-| 原生 FL2／FL3 | `offline/`、`device/` 研究源码 | 一台 A7CR 2.01 已安装并拍摄；未与实体 Alpha 1 II 做一致性标定 |
-| 六个自定义槽位 | 研究源码 | 一台机身完成程序／资源／设置写入和完整读回；完整断电后的机器核验及六槽逐一实拍验收尚未记录为完成 |
-| 安装与还原 | 研究接口 | 要求逐机准备和审核精确来源、备份与清单；不是面向所有机身的一条安装命令 |
-| 其他机身／系统／固件 | 尚未建立 | 不能直接沿用这里的偏移或验证结论 |
-
-## 本次实际使用的电脑环境
-
-下面是**实际研究电脑**的信息，不是最低配置，也不代表所有同类 Mac 均已兼容。
-
-| 项目 | 实测环境 |
-|---|---|
-| 电脑 | MacBook Pro，机型标识 `Mac16,8` |
-| 芯片／CPU | Apple M4 Pro，12 核 CPU：8 个性能核、4 个能效核 |
-| 内存 | 24 GB |
-| 架构 | `arm64`／Apple Silicon |
-| macOS | 27.2，构建号 `26B5091g` |
-| Shell | zsh |
-| Python | 独立虚拟环境中的 3.12.14 |
-| USB | PyUSB 1.3.1、libusb-package 1.0.30.0 |
-| 数值／图像工具 | NumPy 2.5.4、SciPy 1.18.1、rawpy 0.27.1／LibRaw 0.22.1、Pillow 13.0.0 |
-| 研究工具 | Capstone 5.0.6、pyelftools 0.32、Unicorn 2.1.4、Zig 0.13.0、Keystone 0.9.2 |
-| 原生构建辅助 | CMake 3.31.10；Keystone 共享库由固定的官方源码编译为 arm64 |
-| 元数据工具 | 固定源码提交的 ExifTool 13.59 |
-| 相机 | 一台 Sony ILCE-7CR，相机版本界面为 2.01 |
-
-公开记录不包含电脑序列号、UUID、主机名、用户名、个人绝对路径、相机序列号／
-绑定摘要或照片原片。机器可读记录见 [validation/environment.json](validation/environment.json)。
-本项目没有对 Intel Mac、Windows／Linux 相机访问、其他 macOS 版本或其他机身做
-实机验证。
+这是非官方固件研究。错误或中断的写入可能导致相机无法启动。保留核验过的私人
+备份，使用精确来源检查。模拟器通过或内核启动标识改变都不等于保证可以恢复。
 
 ## 准备环境
 
-下载解压或克隆本仓库，在终端进入仓库根目录。若要复现记录环境，使用 Python 3.12：
+使用 Python 3.12 和独立虚拟环境：
 
 ```sh
 python3.12 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r requirements.txt
-python a7cr.py bootstrap
-python a7cr.py doctor
-```
-
-`bootstrap` 通过 Git 获取 [upstream.lock.json](upstream.lock.json) 中固定提交的
-上游源码。首次需要网络。若已有目录的提交不符，程序会停止，而不是重置该目录。
-上游原始署名与许可留在本地检出目录；它们不会因此改成我们的许可。
-
-这个命令不下载 Sony 官方固件包，也不下载 DCP 发布附件。已有固定提交的本地检出
-可直接复用，不必再次获取。电脑需有 Git 与 Perl；原生研究构建还需对应构建工具。
-虚拟环境和上游检出目录均被 Git 忽略。
-
-### 只检查环境
-
-```sh
-python a7cr.py doctor
-```
-
-输出 Python、系统架构、部分依赖版本和上游提交状态。不会枚举 USB、读取硬件
-序列号、进行相机认证、卸载磁盘或打开设备。
-
-## 公开命令
-
-### 识别已连接的相机
-
-在相机选择**影像传输／MSC**，直接连接 Mac，然后运行：
-
-```sh
-python a7cr.py identify
-```
-
-仅列出 Sony USB 产品与接口描述符，不输出序列号，不进入服务模式。
-本次观察到普通 A7CR 为 `054c:0e86`，服务身份为 `054c:0336`。
-PID 本身不能作为机型确认依据，实际流程还核对产品和接口。
-
-### 读取当前机身状态的备份
-
-先在相机版本界面确认固件版本。两个目标目录必须都是新目录，彼此不同，且不能相互嵌套：
-
-```sh
-sudo .venv/bin/python a7cr.py backup \
-  --firmware-version 2.01 \
-  --workspace private/backups/camera-01-a \
-  --backup-copy private/backups/camera-01-b
-```
-
-管理员授权在你自己的终端输入，不把密码作为程序参数。macOS 端先核对磁盘确实
-属于这台 A7CR，再正常、非强制地卸载相机磁盘，并捕获该相机的 USB 接口。
-
-USB 时序很重要：开始前选择 MSC。程序正在切换到服务模式时，**不要再次点击
-相机的 USB／MSC 选择**；Mac 如出现“允许配件连接”，可允许。只有出现明确的
-“读取已结束”提示后，才按提示重新选择 MSC。未知结果之后不会自动重复服务认证。
-
-八个备份文件包括 AP／CP 组件、实时／已保存 Backup 快照，以及从快照中提取的
-四个 CP 单元。此前一次冗余的直接 READ40 单元00发生超时，因此这里不再发送该
-请求。两份文件都按字节核验，并设置本地私有权限。
-
-备份代表**当前状态**，机身若已修改，备份也包含修改；不能据此声称是原厂备份。
-同一块磁盘上的两个目录不能防范整块磁盘丢失，清单会报告这一点；条件允许时，
-使用另一块物理存储作为第二目的地。保留完整私人备份。读取超时或服务状态未知时，
-保留输出与任务，不要盲目重复运行。
-
-### 在本地转换 DCP
-
-原始文件由使用者根据
-[上游 DCP 说明](https://github.com/QAQLeonard/a7c2-fl23-research/blob/b51688deecb56cd34fdd1f2948915cd6ea4e6736/docs/zh-CN/profiles.md)
-自行获取。本项目不附带 DCP 或预计算 LUT。
-
-优先使用实测的转换模型：
-
-```sh
-python a7cr.py fit-dcp /path/to/profile.dcp \
-  --name "My Look" --slot 1 \
-  --calibration /path/to/measured-model.json \
-  --output private/fits/my-look-01
-```
-
-若只是明确接受上游单场景 A7C II 模型的暂定实验，可使用：
-
-```sh
-python a7cr.py fit-dcp /path/to/profile.dcp \
-  --name "My Look" --slot 1 --use-upstream-model \
-  --output private/fits/provisional-01
-```
-
-输出为 1,215 字节有符号7位修正表和本地报告，**不是可安装任务**。转换器只使用
-DCP LookTable／tone 阶段，不是完整 Adobe RAW 显影器。上游单场景模型也不是
-这台 A7CR 的实测标定；较低的合成拟合误差不等于实机色彩准确性。
-
-报告包含暂定模型的中性灰高光检查，其数值不是 IRE，也不是传感器曝光百分比。
-不要把删除模型显影曝光参数当成通用高光修复，这也会改变中灰亮度。
-
-导入槽位要求**实际基础外观为 ST**。菜单中的基础外观选择器仍可编辑，并没有锁死。
-这与使用自身处理记录的原生 FL2／FL3 是不同路径。拟合完成不能证明机身绑定、
-运行中加载或实拍效果已经正确。
-
-### 分析 RAW+JPEG 曝光序列
-
-明确选择同名 `.ARW` 与 `.JPG` 文件对。工具直接读取输入，并新建输出目录，
-不覆盖或修改原片：
-
-```sh
-python a7cr.py analyze-photos \
-  --input /path/to/DCIM/100MSDCF \
-  --stems DSC00001 DSC00002 DSC00003 \
-  --output private/analysis/exposure-01
-```
-
-只请求预先列出的元数据标签，不请求 GPS 和序列号。输出包含本地元数据、RAW
-达到上限的采样统计、JPEG 白色像素统计与缩略图。本地元数据仍可能包含原始文件
-路径，分享前需检查。目前支持 2×2 Bayer RAW+JPEG，不支持仅 HEIF 输入，也不是
-完整的色彩标定流程。
-
-本次 A7CR 曝光测试见[验证与限制](docs/VALIDATION.zh-CN.md)：原生 FL2 在 ISO400、
-F2、快门 1/400 至 1/3200 的四张照片中，RAW 饱和与 JPEG 纯白面积随减光下降。
-这没有建立“白端被锁死”的结论，也没有“修好了曝光算法”的成果声明；该组照片
-不用于验收六款导入 DCP 外观。
-
-## 安装研究源码
-
-使用 `offline/` 和 `device/` 前先读[研究流程](docs/WORKFLOW.zh-CN.md)及
-[验证限制](docs/VALIDATION.zh-CN.md)。源码包含程序构建、原生交易模块、预检、
-选中设置、名称资源、WBI、停止状态核对和重载后检查。
-
-部分路径有意保留原研究任务名称，需要重新准备并审核自己的私人工作目录。
-原始任务的私人清单、载荷和逐次终端启动脚本不随发布包提供。
-
-流程把程序、名称、配方、WBI、完全断电、已加载 AP 检查与实拍验收分开。
-不能因为后续名称读回超时，就重复此前已成功的 CP 写入；只允许根据证据确认的
-特定阶段收尾。新鲜的无关设置与本机校准必须保留。完整实机还原尚未验证，
-软件逆向恢复通过不能作为硬件恢复保证。
-
-## 离线测试
-
-```sh
 python -m pip install -r requirements-research.txt
+python a7cr.py bootstrap --research
+python a7cr.py doctor
+```
+
+`bootstrap` 获取 [upstream.lock.json](upstream.lock.json) 固定提交的源码，
+不下载 Sony 固件、DCP 或已准备好的机身安装任务。已有上游目录提交不符时会停止，
+不会重置。Apple Silicon 上的 Keystone 可能需要从固定源码编译原生库，参见流程文档。
+
+## 通用 agent 私人项目
+
+```sh
+python a7cr.py project init \
+  --project private/projects/my-camera --firmware-version 2.01
+python a7cr.py project status --project private/projects/my-camera
+```
+
+初始化只创建本地项目，不读取或绑定相机。版本参数是使用者的声明，不是识别证据。
+私人文件保存在项目的 `private/`，源码和固定依赖保留在当前代码检出中。支持绝对路径
+和带空格的路径。每个活动安装包使用独立代码检出；改动已绑定的源码会使收据失效。
+
+项目用来管理**在本机逐机准备并审核的安装包**，不是下载即可刷入所有机身的安装器。
+研究构建器仍需要本地 Sony 组件、已核验的 FL23 基线、DCP／模型输入及放置／加载证据。
+缺少输入或收据时 CLI 会停止。按[流程文档](docs/WORKFLOW.zh-CN.md)准备，
+不要编造缺失清单，也不要复制另一台机身的安装包。
+
+每个步骤独立、显式执行：
+
+在本机提供三份匹配的原始素材，再离线拟合：
+
+```sh
+python a7cr.py project fit-profiles --project private/projects/my-camera \
+  --classic-chrome /path/to/Classic_Chrome.dcp \
+  --pro-neg-std /path/to/Pro_Neg_Std.dcp --astia /path/to/Astia.dcp \
+  --use-upstream-model
+```
+
+此预设核对原始输入哈希，并要求显式接受暂定模型。准备并核验本机 FL23 基线后，
+使用 `--stage single --operation build-assets` 重建首槽候选、放置／加载证据、读取器
+与恢复目录；安装 CC 并通过机器核验后，再用 `--stage portrait --operation build-assets`
+构建增量。这些命令只离线生成工件，不授权安装。
+
+```sh
+# 只读检查点；管理员授权在使用者自己的终端完成。
+sudo .venv/bin/python a7cr.py project run --project private/projects/my-camera \
+  --stage portrait --operation checkpoint
+
+# 从明确选定的完整检查点离线准备。
+python a7cr.py project run --project private/projects/my-camera \
+  --stage portrait --operation prepare \
+  --checkpoint private/projects/my-camera/private/portrait-slots-checkpoints/READ/checkpoint.private.json
+python a7cr.py project run --project private/projects/my-camera \
+  --stage portrait --operation native-check
+python a7cr.py project run --project private/projects/my-camera \
+  --stage portrait --operation finalize
+python a7cr.py project run --project private/projects/my-camera \
+  --stage portrait --operation validate
+```
+
+`--stage single` 对应首次单槽流程；`--stage portrait` 对应在机器核验过的单槽 CC 上
+增量添加两槽。新阶段必须有新鲜检查点。`status` 只报告已记录的阶段；`validate`
+才会核对实际工件、收据与绑定的源码。
+
+### 显式刷写与启动后检查
+
+只有本机准备成功后，才在相机选择创意外观列表里的 **ST**，连接并选
+**影像传输／MSC**。屏幕上的**当前实际电量**至少为 75%。下面仅举刚查看到 90% 的例子：
+
+```sh
+sudo .venv/bin/python a7cr.py project run --project private/projects/my-camera \
+  --stage portrait --operation install --battery-percent 90
+```
+
+不要把示例的 90 当作推定电量。CLI 不读取或保存 Mac 密码，管理员授权由使用者
+终端的 `sudo` 完成。每次只执行所选操作，不会自动重试、继续或推进到下一次写入。
+
+切换服务模式期间不要再次选 MSC；出现“读取已结束”后，及时按相机提示选择。
+全部 I/O 和服务退出结束后，断开 USB、正常关机，等存取灯熄灭，取出电池至少
+60 秒，再装回开机。分别检查名称、新照片、相机回放和原有外观，重连 MSC 后运行：
+
+```sh
+sudo .venv/bin/python a7cr.py project run --project private/projects/my-camera \
+  --stage portrait --operation verify
+```
+
+`restore` 使用已准备的精确逆向及新鲜电量确认。人像增量的恢复目标是之前的
+**单槽 CC**；仅当参数仍等于导入值时才恢复检查点值，保留之后由使用者改动的项目。
+不会覆盖整份设置快照。
+
+未知结果会停止。`inspect-exit` 只检查本机文件；`review-exit` 仅用于已经完整写入的人像
+增量在冷启动后的只读收尾核验。两者都不是重刷，也不是通用救砖流程。
+
+## 原有离线／只读工具
+
+仍提供 `doctor`、仅描述符的 `identify`、显式当前状态 `backup`、本地 `fit-dcp`
+与 `analyze-photos`。查看 `python a7cr.py --help` 和流程文档。DCP 拟合只生成
+不可直接安装的候选表；共享上游模型仍是暂定模型，有实测 A7CR 校准时应优先使用。
+
+## 开发、署名与许可
+
+```sh
 python tools/run_tests.py
+PYTHONPATH=.:device:offline python -m unittest \
+  test_single_slot_candidate test_prepare_single_slot_installation \
+  test_portrait_slots_candidate test_prepare_portrait_slots_installation \
+  test_portrait_slots_runtime
 python tools/audit_publication.py
 ```
 
-本次公开主机测试：**127 项，其中 84 项通过、43 项跳过，0 失败／错误**。
-私人机身集成样本刻意排除，跳过不算通过。该测试套件的设备协议调用均使用模拟，
-不会连接相机。原生 CPU／系统调用模拟、历史读回和实机回报属于不同证据层级，
-见 [validation/public-tests.json](validation/public-tests.json) 与验证说明。
+测试中的设备协议使用模拟。私有样本跳过项单独记录，不计为通过。
+[验证说明](docs/VALIDATION.zh-CN.md)分别记录原生指令／事务模拟、Sony 函数桩、
+全尺寸哈希 oracle、实际启动、试拍和恢复的证据范围。
 
-原研究环境的部分 Unicorn ARM 模拟需要在进程沙箱外执行；这不代表相机授权，
-也不能作为完整硬件模拟证明。
-
-## 目录结构
-
-```text
-a7cr.py                 公开的主机／离线入口
-tools/                  固定依赖、DCP拟合、照片分析、测试和发布检查
-device/                 A7CR读取、macOS归属判断、研究交易与测试
-offline/                来源分析、补丁／原生模块构建和检查
-docs/                   中英文研究流程、验证与限制
-licenses/               保留的上游软件许可
-validation/             脱敏电脑环境与公开测试摘要
-private/、research/     仅本地，Git忽略，不发布
-```
-
-## 许可与参与
-
-对应软件代码使用 MIT，并保留上游署名。Sony 固件、抽取的原厂色彩／校准资产、
-DCP/LUT 数据与个人照片不属于该授权范围，见 [NOTICE.md](NOTICE.md)。
-
-反馈问题时提供机型／固件、系统版本与架构、命令、经过脱敏的失败阶段。未知结果
-的原始日志在本地保留，不上传固件、机身备份、校准、标识或私人照片。
-贡献须区分软件模拟、文件读回、实际加载与实拍证据。新固件／新机型需另行定位
-与验证，修改机型限制或沿用偏移并不能构成适配。
+基础来自 [QAQLeonard/A7C II](https://github.com/QAQLeonard/a7c2-fl23-research)、
+[lzh2016zzz/A7CR 研究](https://github.com/lzh2016zzz/a7cr-fl23-research)、
+[MDHan/macOS](https://github.com/MDHan/a7c2-fl23-macos) 和
+[Sony-PMCA-RE](https://github.com/ma1co/Sony-PMCA-RE)。保留的许可与素材署名见
+[NOTICE.md](NOTICE.md)。软件许可不会自动覆盖 Sony 固件或另行提供的素材，
+也不暗示上游作者、相机厂商或素材作者为此适配背书。

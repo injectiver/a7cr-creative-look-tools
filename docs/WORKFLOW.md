@@ -2,11 +2,54 @@
 
 [English](WORKFLOW.md) · [简体中文](WORKFLOW.zh-CN.md) · [README](../README.md)
 
-This explains the source interfaces and evidence order. It is not a claim that
-the published source is a generic stock-to-installed camera application. The
-public commands listed in the README have stable host-facing arguments; the
-research scripts below include original case paths and must be reviewed for a
-new body/workspace. Do not copy a different camera's private package.
+The public `project` interface in 0.2 separates private data from this checkout.
+It runs one explicitly selected operation and emits JSON. The research builders
+still require local Sony inputs and a locally verified FL23 baseline; this is
+not a universal stock-to-installed camera app. Never reuse another body's job.
+
+## 0. Portable projects and the three-look preset
+
+Initialize with `python a7cr.py project init --project PATH --firmware-version 2.01`.
+The project contains source/dependency links plus private outputs, and the CLI
+sets `A7CR_PROJECT_ROOT` for trusted children. When invoking an advanced builder
+directly, set that variable to the project's absolute path and include this
+checkout's root, `device/` and `offline/` in `PYTHONPATH`.
+
+| Project-local role | Location |
+| --- | --- |
+| Verified, body-bound FL23 job | `private/install/fl23/` |
+| Original local components | `private/components/ILCE-7CR_2.01`, `ILCE-7CM2_2.01`, donor inputs as required |
+| First fit / candidate / readers | `private/single-slot-input/`, `private/single-slot-candidate/`, `private/single-slot-runtime/` |
+| First body-bound job | `private/single-slot-install/classic-chrome/` |
+| New two-slot fits / candidate / readers | `private/portrait-inputs/`, `private/portrait-candidate/`, `private/portrait-slots-runtime/` |
+| Incremental body-bound job | `private/portrait-slots-install/portrait/` |
+
+Use `project fit-profiles` with the three explicitly supplied unchanged reference
+DCPs. Their hashes are checked; no profile is downloaded. `build-assets` executes
+the actual CPU paths, static ownership checks, loader/bootstrap checks, reader
+simulations and bounded CAS-catalog simulations. It is offline and cannot mark
+an installation complete. Existing partial outputs are preserved instead of
+silently overwritten; inspect the private log before choosing a new build.
+
+Order: verified FL23 baseline → fit local profiles → build single assets → fresh
+single checkpoint → prepare → native-check → finalize → validate → explicit
+install → owner cold start / photos → verify. Only then build portrait assets
+and repeat from a fresh portrait checkpoint. The original baseline preparation
+interfaces below remain for advanced research; they create body-bound data, not
+release assets.
+
+The portrait extension preserves slot 1 and adds only slots 2/3. Saved parameters
+are set to ST, freshly probed, and each slot's native setter uses lock-protected
+CAS. After each setter the full model is independently probed. Loaded/native
+reports must agree in PID, base and boot ID. Inverse order is AP, CP, then only
+the added names, recovering the previous CC version. Later selected-field edits
+are kept by compare-and-restore; no whole-backup replacement occurs.
+
+For the observed ordinary-USB exit timeout, `inspect-exit` redecodes original
+program/WBI/name/native reports and snapshots and rejects incomplete or unknown
+writes. `review-exit` additionally requires a new cold boot and a fresh fully
+bound read-only verification. The stop event is retained; truthful later
+completion is appended only after verification and ordinary USB return.
 
 ## 1. Inputs and source provenance
 
@@ -38,8 +81,8 @@ verify a trivial ARM/ARM64 assembly before producing a real candidate.
 | `build_native_workers.py`, `check_native_workers.py` | Compile native transactions and simulate failure/inverse paths | Per-job native modules, never release payloads |
 | `build_resource_mirror.py`, `check_resource_mirror.py` | Checked padded-copy reader for the observed one-file boundary | Local temporary-reader module and simulation evidence |
 
-Several historical constants refer to `20261020-*` case directories. Those are
-relative research case names, not a public package supplied to new users.
+The public preset uses the stable role directories above. Retained historical
+stop-inspection helpers are research references and are not selected by the project CLI.
 Preparation requires a fresh backup, new body binding, source checks and native
 preflight. Renaming a case path or removing a guard is not enough.
 

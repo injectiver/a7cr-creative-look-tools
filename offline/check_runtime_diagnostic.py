@@ -20,7 +20,7 @@ def run(Machine,manifest_path=None,program_paths=None):
     manifest = json.loads(manifest_path.read_text())
     blob = (ROOT / manifest["worker"]["file"]).read_bytes()
     spans = manifest["spans"]
-    directory = ROOT / "private/install/20261020-a7cr-fl23-01/payload"
+    directory = ROOT / "private/install/fl23/payload"
     program_paths=program_paths or {d:directory/(d+"-AP.private.bin") for d in ("original","candidate")}
     regions = {}
     for direction in ("original", "candidate"):

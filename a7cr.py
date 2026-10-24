@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """A7CR host tools. Camera access requires an explicit identify/backup command.
 
-Installation sources in device/ and offline/ are research interfaces, not a
-generic flash command. No public command here writes firmware/settings/WBI.
+Project operations wrap reviewed per-body research packages. Only explicitly
+selected checkpoint/install/verify/restore operations can open a camera.
 """
 from __future__ import annotations
 import argparse
@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-VERSION = "0.1.0-research"
+VERSION = "0.2.0-research"
 
 
 def doctor():
@@ -30,7 +30,8 @@ def doctor():
         "host_tested_family": platform.system() == "Darwin" and platform.machine() == "arm64",
         "packages": versions, "upstream": status(), "camera_opened": False,
         "serial_numbers_or_hostnames_collected": False,
-        "device_installation_cli": False}, indent=2))
+        "device_installation_cli": True, "requires_reviewed_body_bound_package": True,
+        "generic_camera_installer": False}, indent=2))
 
 
 def main(argv=None):
@@ -58,8 +59,40 @@ def main(argv=None):
     photo.add_argument("--stems", nargs="+", required=True)
     photo.add_argument("--output", type=Path, required=True)
     photo.add_argument("--exiftool", type=Path)
+    project=sub.add_parser('project',help='Agent-neutral private workspaces; JSON stdout, explicit camera operations')
+    project_sub=project.add_subparsers(dest='project_command',required=True)
+    init=project_sub.add_parser('init',help='Create a fresh private workspace; no camera access')
+    init.add_argument('--project',type=Path,required=True)
+    init.add_argument('--firmware-version',choices=('2.01',),required=True)
+    state=project_sub.add_parser('status',help='Report recorded local phases; no camera access')
+    state.add_argument('--project',type=Path,required=True)
+    profiles=project_sub.add_parser('fit-profiles',help='Fit three explicitly supplied local preset DCPs; offline only')
+    profiles.add_argument('--project',type=Path,required=True)
+    profiles.add_argument('--classic-chrome',type=Path,required=True)
+    profiles.add_argument('--pro-neg-std',type=Path,required=True)
+    profiles.add_argument('--astia',type=Path,required=True)
+    profiles.add_argument('--use-upstream-model',action='store_true',required=True)
+    run=project_sub.add_parser('run',help='Run one explicitly selected operation, never retry or auto-advance')
+    run.add_argument('--project',type=Path,required=True)
+    run.add_argument('--stage',choices=('single','portrait'),required=True)
+    run.add_argument('--operation',choices=('build-assets','checkpoint','prepare','native-check','finalize','validate','install','verify','restore','inspect-exit','review-exit'),required=True)
+    run.add_argument('--battery-percent',type=int)
+    run.add_argument('--checkpoint',type=Path)
     args = parser.parse_args(argv)
-    if args.command == "doctor":
+    if args.command=='project':
+        from tools import workflow
+        try:
+            if args.project_command=='init':result=workflow.initialize(args.project,args.firmware_version)
+            elif args.project_command=='status':result=workflow.status(args.project)
+            elif args.project_command=='fit-profiles':result=workflow.fit_profiles(args.project,
+                {1:args.classic_chrome,2:args.pro_neg_std,3:args.astia},use_upstream_model=args.use_upstream_model)
+            else:result=workflow.run(args.project,args.stage,args.operation,battery=args.battery_percent,checkpoint=args.checkpoint)
+            print(json.dumps(result,ensure_ascii=False,indent=2))
+            return 0 if result.get('ok') else 2
+        except (OSError,RuntimeError,ValueError,KeyError,subprocess.CalledProcessError) as exc:
+            print(json.dumps({'ok':False,'error':type(exc).__name__,'message':str(exc),'automatic_retry':False},ensure_ascii=False))
+            return 2
+    elif args.command == "doctor":
         doctor()
     elif args.command == "bootstrap":
         from tools.upstream import bootstrap
@@ -75,7 +108,8 @@ def main(argv=None):
         else:
             cmd += ["backup", "--workspace", str(args.workspace), "--backup-copy", str(args.backup_copy),
                     "--firmware-version", args.firmware_version, "--mac-capture"]
-        return subprocess.call(cmd)
+        from tools.workflow import host_usb_lock
+        with host_usb_lock():return subprocess.call(cmd)
     elif args.command == "fit-dcp":
         from tools.fit import run
         run(args)

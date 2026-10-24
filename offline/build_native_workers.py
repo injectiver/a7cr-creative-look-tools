@@ -107,7 +107,7 @@ def compile_worker(folder, filename, text, header=None):
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     audit = json.loads((ROOT / "private/offline/fl23-candidate/audit.private.json").read_text())
-    body = json.loads((ROOT / "private/offline/20261020-a7cr-read02-body-plan/body-plan.private.json").read_text())
+    body = json.loads((ROOT / "private/offline/baseline-body-plan/body-plan.private.json").read_text())
     before, after, sizes = [], [], []
     all_windows = []
     for chip, kind in enumerate(("AP", "CP")):

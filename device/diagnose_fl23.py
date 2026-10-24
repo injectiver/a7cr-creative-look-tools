@@ -19,7 +19,7 @@ from preflight_fl23 import CheckSession, sha
 
 EXTRA = frozenset(("a7cr.diag-staged.so", "a7cr.diag.probe.result", "a7cr.diag.runtime.result"))
 NAMES = OWNED | EXTRA
-WORKSPACE = ROOT / "private/install/20261020-a7cr-fl23-01"
+WORKSPACE = ROOT / "private/install/fl23"
 
 
 class DiagnosticSession(CheckSession):

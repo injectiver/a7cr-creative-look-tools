@@ -188,6 +188,28 @@ class TransitionTests(unittest.TestCase):
         self.assertEqual(timed_out[0].kwargs["last_observed_pids"], ["0e86"])
         self.assertFalse(timed_out[0].kwargs["authentication_repeated"])
 
+    def test_delayed_reenumeration_is_observed_without_reauth(self):
+        normal, service = self.device(0x0E86), self.device(subject.SERVICE)
+        reader, usb = self.fixture([[normal]] + [[] for _ in range(59)] + [[service]])
+        clock, sleep = self.clock()
+        with clock, sleep:
+            self.assertIs(reader.wait_for_service(usb, object()), service)
+        reader.auth.start.assert_not_called()
+        reader.auth.authenticate.assert_not_called()
+        reader.auth.stop.assert_not_called()
+
+    def test_host_diagnostic_error_does_not_trigger_camera_commands(self):
+        service = self.device(subject.SERVICE)
+        reader, usb = self.fixture([[], [service]])
+        reader.mac_capture = True
+        clock, sleep = self.clock()
+        with clock, sleep, patch('mac_usb.sony_usb_snapshot', side_effect=OSError('synthetic')):
+            self.assertIs(reader.wait_for_service(usb, object(), seconds=2), service)
+        self.assertTrue(reader.healthy)
+        reader.auth.start.assert_not_called()
+        reader.auth.authenticate.assert_not_called()
+        reader.auth.stop.assert_not_called()
+
     def test_wrong_port_or_multiple_services_rejected_without_reauth(self):
         for services in ([self.device(subject.SERVICE, (9,))],
                          [self.device(subject.SERVICE), self.device(subject.SERVICE, (9,))]):

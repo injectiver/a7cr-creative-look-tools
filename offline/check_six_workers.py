@@ -10,7 +10,7 @@ from check_native_workers import Machine,AP,CP,program_files,program_report,moun
 from build_native_workers import ROOT,compile_worker,manifest_header,source,array,sha
 from inspect_sources import save_json
 
-JOB=ROOT/'private/lut-install/six-20261020-01'
+JOB=ROOT/'private/lut-install/six'
 OUT=JOB/'simulation'
 
 

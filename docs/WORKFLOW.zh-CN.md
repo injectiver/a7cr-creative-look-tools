@@ -6,6 +6,43 @@
 完整安装应用。首页列出的公开命令具有固定参数；研究脚本仍包含原始任务路径，
 用于新机身／工作目录前需要逐项审核。不能使用另一台相机的私人安装包。
 
+
+## 0. 通用项目与三款外观预设（0.2）
+
+使用 `python a7cr.py project init --project PATH --firmware-version 2.01` 创建新项目。
+项目保存源码／依赖链接及私人输出；CLI 为受信子进程设置 `A7CR_PROJECT_ROOT`。
+高级使用者直接调用构建器时，将该变量设为项目绝对路径，并将代码检出的根目录、
+`device/`、`offline/` 加到 `PYTHONPATH`。不依赖特定 agent 客户端。
+
+| 项目内角色 | 位置 |
+| --- | --- |
+| 已核验、逐机绑定的 FL23 任务 | `private/install/fl23/` |
+| 本地原始组件 | `private/components/ILCE-7CR_2.01`、`ILCE-7CM2_2.01` 及所需 donor 输入 |
+| 首槽拟合／候选／读取器 | `private/single-slot-input/`、`private/single-slot-candidate/`、`private/single-slot-runtime/` |
+| 首槽逐机任务 | `private/single-slot-install/classic-chrome/` |
+| 两槽拟合／候选／读取器 | `private/portrait-inputs/`、`private/portrait-candidate/`、`private/portrait-slots-runtime/` |
+| 两槽增量逐机任务 | `private/portrait-slots-install/portrait/` |
+
+用 `project fit-profiles` 显式提供三份匹配的原始 DCP，工具核对哈希而不下载素材。
+`build-assets` 实际运行 CPU 路径、静态所有权、加载／启动检查，以及读取器和有限
+CAS 目录模拟；它只离线生成工件，不能把安装标为完成。已有部分输出会保留，
+不静默覆盖；先检查私人日志，再决定如何处理后续构建。
+
+顺序：已核验 FL23 基线 → 本地拟合 → 首槽 build-assets → 新鲜首槽检查点 →
+prepare → native-check → finalize → validate → 显式 install → 使用者冷启动／试拍 →
+verify。随后才能构建 portrait 工件，从新鲜的两槽检查点开始重复该阶段。
+下方原有基线准备接口仍供高级研究使用，产生的是逐机私人数据，不是发布素材。
+
+两槽增量保留槽 1，仅添加槽 2/3。先保存 ST 参数、重新 probe，再逐槽执行原生锁内
+比较后写入，每次都独立读取完整模型。加载代码和原生报告必须具有相同 PID、加载
+基址和启动标识。逆向顺序为 AP、CP、新增名称，恢复目标为之前的 CC；逐项比较
+还原参数，保留之后的用户改动，不覆盖整份备份。
+
+对实际出现的普通 USB 返回超时，`inspect-exit` 重解码原始程序／WBI／名称／原生
+报告及快照，拒绝不完整或未知的写入。`review-exit` 还要求新冷启动、重新绑定的
+完整只读核验和普通 USB 返回。原失败事件保留，只在这些条件通过后追加真实的
+后续完成记录。不能把它当成重新刷写或通用救砖。
+
 ## 1. 输入与来源
 
 原生 FL23 研究使用本地取得的官方 **ILCE-7CR 2.01** 与 **ILCE-1M2 4.00**。

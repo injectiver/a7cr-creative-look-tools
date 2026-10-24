@@ -19,7 +19,10 @@ import sys
 import time
 from datetime import datetime, timezone
 
-ROOT = Path(__file__).resolve().parents[1]
+import sys as _path_sys
+_path_sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from tools.project_paths import runtime_root
+ROOT = runtime_root(Path(__file__).resolve().parents[1])
 sys.path.insert(0, str(ROOT / "research/repos/a7c2-fl23-research/src/fl23/vendor"))
 sys.path.insert(0, str(ROOT / "offline"))
 from inspect_sources import save_json
@@ -125,12 +128,20 @@ class Reader:
         self.record("read_returned", operation=label)
         return result
 
-    def wait_for_service(self, usb, backend, seconds=25):
+    def wait_for_service(self, usb, backend, seconds=60):
         """Observe re-enumeration only; never repeat authentication or send packets."""
         deadline = time.monotonic()+seconds
         previous = None
+        next_host_observation = 0
         try:
             while True:
+                if self.mac_capture and time.monotonic() >= next_host_observation:
+                    import mac_usb
+                    try:
+                        self.record("host_usb_transition_observed", devices=mac_usb.sony_usb_snapshot())
+                    except Exception as error:
+                        self.record("host_usb_observation_failed", error_type=type(error).__name__)
+                    next_host_observation = time.monotonic()+5
                 devices = list(usb.core.find(find_all=True, idVendor=VID, backend=backend))
                 observed = sorted((device.idProduct, device.bus, tuple(device.port_numbers or ())) for device in devices)
                 if observed != previous:

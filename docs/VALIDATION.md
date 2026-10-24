@@ -6,7 +6,35 @@ Recorded on 2026-10-20/21, Asia/Shanghai. All original firmware, per-body data,
 native payloads, logs with identifiers and photo files remain private. This
 document publishes selected non-identifying results and their practical limits.
 
-## Public release checks
+## 0.2 update — 2026-10-25
+
+The reviewed local implementation completed the single-slot CC installation,
+then an incremental PRO Neg. Std/ASTIA extension. The increment's complete AP/CP
+and all 68 resources matched the target. After a new boot, all 16 loaded AP
+spans and both saved/native ST bases matched. Three new 9504×6336 JPEGs carried
+markers 250, 251 and 0, at 1/30 s, f/2.8, ISO 400; full decoding and inspected
+views showed no obvious corruption or abnormal bands. These were indoor still
+life, not a skin-tone comparison. Full in-camera playback combinations and
+complete physical restoration remain separate acceptance work.
+
+The recorded USB-return timeout occurred after program/resource/settings/WBI
+completion and service exit. Original binary reports and snapshots were
+redecoded before a new cold-start read-only session; the original failure was
+preserved, and the later verification succeeded without reinstallation.
+
+The portable interface passed 283 public host tests (234 passes, 49 explicit
+private-fixture skips) and 65 relevant offline tests (48 passes, 17 skips), with
+zero failures/errors. A new independent private project fitted the local inputs
+and rebuilt the first-slot candidate to the original AP/CP hashes, including
+placement/loading evidence, 7-case readers, a 5-case native probe and the
+23-variant recovery catalog. No camera was opened for this rebuild. The portable
+API itself has not been physically tested on a second body.
+
+[Machine-readable scope](../validation/creative-look-validation.json). These
+records exclude private IDs, binding digests, raw logs, firmware, profiles and
+photos. The earlier 0.1 record follows.
+
+## Historical 0.1 release checks
 
 - Public host suite: **127 tests: 84 passed, 43 skipped, 0 failures/errors**.
   Device protocols are mocked; no camera is opened. Skips represent deliberately
